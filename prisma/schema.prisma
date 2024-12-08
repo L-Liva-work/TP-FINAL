@@ -12,23 +12,3 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
-
-model Proyecto{
-	id Int @id @default(autoincrement())
-	name String	
-	date DateTime
-	descripcion String
-	creador Person @relation(fields: [creadorId], references: [id])
-	creadorId Int
-	}
-
-model Person{
-	id Int @id @default(autoincrement())
-	email String @unique
-	nombre String 
-	doc Int @unique
-	puesto String
-
-	Proyectos Proyecto[]
-}
