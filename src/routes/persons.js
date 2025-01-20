@@ -29,5 +29,17 @@ router.get('/:id' , async (req, res) => {
 })
 
 
+router.post('', async (req, res) => {
+    const person = await prisma.person.create({
+        data: {
+            name: req.body.name,
+            email: req.body.email,
+            doc: req.body.doc,
+            puesto: req.body.puesto
+        }
+    })
+    res.status(201).send(person)
+})
+
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
