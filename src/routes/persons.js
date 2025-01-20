@@ -41,5 +41,26 @@ router.post('', async (req, res) => {
     res.status(201).send(person)
 })
 
+
+router.delete('/:id', async (req, res) => {
+    const person = await prisma.person.findUnique({
+        where: {
+            id: parseInt(req.params.id)
+        }
+    })
+
+    if (person === null){
+        res.sendStatus(404)
+        return
+    }
+
+    await prisma.person.delete({
+        where: {
+            id:parseInt(req.params.id)
+        }
+    })
+    res.send(person)
+})
+
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
