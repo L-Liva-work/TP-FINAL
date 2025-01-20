@@ -62,5 +62,32 @@ router.delete('/:id', async (req, res) => {
     res.send(person)
 })
 
+router.put('/:id', async (req, res) => {
+    let person = await prisma.person.findUnique({
+        where: {
+            id: parseInt(req.params.id)
+        }
+    })
+    if (person === null) {
+        res.sendStatus(404)
+        return
+    }
+
+    person = await prisma.person.update({
+        where: {
+            id: person.id,
+        },
+        data: {
+            name: req.body.name,
+            email: req.body.email,
+            doc: req.body.doc,
+            puesto: req.body.puesto
+
+        }
+    })
+    res.send(person)
+})
+
+
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
