@@ -16,11 +16,13 @@ datasource db {
 
 model Proyecto{
 	id Int @id @default(autoincrement())
-	name String	
+	name String	@unique
 	date DateTime
 	descripcion String
 	creador Person @relation(fields: [creadorId], references: [id])
 	creadorId Int
+
+	tasks Tasks[]
 	}
 
 model Person{
@@ -31,5 +33,14 @@ model Person{
 	puesto String
 
 	Proyectos Proyecto[]
+}
+
+model Tasks{
+	id Int @id @default(autoincrement())
+	name String
+	inicio DateTime
+	final DateTime
+	proyecto Proyecto @relation(fields: [proyectos], references: [name])
+	proyectos String
 }
 
