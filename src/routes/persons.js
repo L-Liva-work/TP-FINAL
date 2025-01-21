@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
         const persons = await prisma.person.findMany()
     res.json(persons)
     } catch (error) {
-        res.status(500).jason({error: 'Error al obtener los usuarios'})   
+        res.status(500).json({error: 'Error al obtener los usuarios'})   
     }
 })
 
@@ -32,8 +32,8 @@ router.get('/:id' , async (req, res) => {
 router.post('', async (req, res) => {
     const person = await prisma.person.create({
         data: {
-            name: req.body.name,
             email: req.body.email,
+            nombre: req.body.nombre,
             doc: req.body.doc,
             puesto: req.body.puesto
         }
