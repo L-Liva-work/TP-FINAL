@@ -14,22 +14,36 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.get('/:id' , async (req, res) => {
+router.get('/:id' , async (req, res) => {    
+    const id = parseInt(req.params.id)
+    if (isNaN(id)){
+        res.status(400).send('ID invalido')
+        return
+    }
+
     const person = await prisma.person.findUnique({
         where: {
-            id: parseInt(req.params.id)
+            id
         }
     })
 
-    if (person === null) {
-        res.sendStatus(404)
+    if (!person){
+        res.status(404).send(`Persona con ID ${id} no encontrada`)
         return
     }
+
     res.json(person)
+    
 })
 
 
 router.post('', async (req, res) => {
+    const { nombre, email } = req.body;
+
+    if (!nombre || !email) {
+        return res.status(400).json({ error: 'Los campos nombre y email son requeridos' });
+    }
+
     const person = await prisma.person.create({
         data: {
             email: req.body.email,
@@ -50,7 +64,7 @@ router.delete('/:id', async (req, res) => {
     })
 
     if (person === null){
-        res.sendStatus(404)
+        res.status(404).send('Persona no encontrada')
         return
     }
 
@@ -69,23 +83,28 @@ router.put('/:id', async (req, res) => {
         }
     })
     if (person === null) {
-        res.sendStatus(404)
+        res.status(404).send('Persona no encontrada')
         return
     }
 
-    person = await prisma.person.update({
+    try {
+        person = await prisma.person.update({
         where: {
             id: person.id,
         },
         data: {
-            name: req.body.name,
             email: req.body.email,
+            nombre: req.body.nombre,
             doc: req.body.doc,
             puesto: req.body.puesto
 
         }
     })
     res.send(person)
+    } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar el usuario' });
+    }
+    
 })
 
 
