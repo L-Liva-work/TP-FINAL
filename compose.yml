@@ -4,6 +4,6 @@ services:
     environment:
       - POSTGRES_USER=JLF
       - POSTGRES_PASSWORD=contraseñaresegura
-      - POSTGRES_DB=queuee
+      - POSTGRES_DB=Queuee
     ports:
       - 5432:5432
