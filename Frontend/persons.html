@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Proyecto</title>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+        >
+        <script src="https://kit.fontawesome.com/d1c58f18fd.js" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+      <div class="container is-fluid">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="users.html"><strong>JLF</strong></a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Inicio
+            </a>
+      
+            <a class="navbar-item">
+              Mis proyectos
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link" href="persons.html.html">
+                Usuarios
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Detalles
+                </a>
+                <a class="navbar-item is-selected" href="create_persons.html">
+                  Crear usuario
+                </a>
+                
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="crear_personas.html">
+                  
+                  <strong>Agregar usuario </strong>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-user-plus"></i>
+                  </span>               
+                </a>
+                <a class="button is-light">
+                  <i class="fa-solid fa-user-plus"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </nav>
+
+        <h1>Personas que integran el proyecto:</h1>
+        <div class="container is-max-desktop">
+          <table class="table is-bordered is-hoverable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Doc</th>
+                <th>Puesto</th>
+                <th>Borrar</th>
+                <th>Editar</th>                
+              </tr>
+            </thead>
+            <tbody id="data-persons">
+              <!--
+              <tr>
+                <th>1</th>
+                <th>Peppa</th>
+                <th>peppa@example</th>
+                <th>11223344</th>
+                <th>Gerente</th>
+                <th><botton>
+                </botton><th>
+              </tr>
+              -->
+          
+            </tbody>
+          </table>
+        </div>
+
+        
+      </div>
+
+    </body>
+    <footer>
+    </footer>
+
+    <script>
+
+      window.onload = function () {
+        mostrar_personas()
+      }
+
+
+      mostrar_personas = function() {
+        fetch('http://localhost:3000/api/v1/persons')
+        .then(response => response.json())
+        .then(persons => {
+          console.log(persons)
+
+          let table = document.getElementById('data-persons')
+          table.innerHTML = ''
+          persons.forEach(person => {
+            let tr = document.createElement('tr')
+
+            let id = document.createElement('th')
+            id.textContent = person.id
+
+            let nombre = document.createElement('td')
+            nombre.textContent = person.nombre
+
+            let email = document.createElement('td')
+            email.textContent = person.email
+
+            let doc = document.createElement('td')
+            doc.textContent = person.doc
+
+            let puesto = document.createElement('td')
+            puesto.textContent = person.puesto 
+             
+            let borrar = document.createElement('td')
+            let button = document.createElement('button')
+            button.className = 'button is-danger is-light'
+
+            let icono = document.createElement('i')
+            icono.className = 'fa-solid fa-trash-can'
+            button.onclick = function(){eliminar_personas(person.id)}
+            button.appendChild(icono)
+            
+            let editar = document.createElement('td')
+            let button_editar = document.createElement('button')
+            button_editar.className = 'button is-info is-light'
+            let icono_editar = document.createElement('i')
+            icono_editar.className = 'fa-solid fa-pen-to-square'
+            button_editar.onclick = function(){ actualizar_personas(person.id)}
+            button_editar.appendChild(icono_editar)
+         
+
+            editar.appendChild(button_editar)
+            borrar.appendChild(button)
+            tr.appendChild(id)
+            tr.appendChild(nombre)
+            tr.appendChild(email)
+            tr.appendChild(doc)
+            tr.appendChild(puesto)
+            tr.appendChild(borrar)
+            tr.appendChild(editar)
+          
+            table.appendChild(tr)
+          });
+
+        })
+        .catch(error => console.error('Error en la solicitud:', error));
+
+      }
+
+      eliminar_personas = function (id) {
+        alert('Borrando persona ' + id)
+        fetch('http://localhost:3000/api/v1/persons/' + id, {
+          method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          mostrar_personas()
+        })
+        .catch(error => console.error('Error en la eliminación:', error));
+      
+      }
+
+      actualizar_personas = function (id) {
+        fetch('http://localhost:3000/api/v1/persons/' + id, {
+          method: 'PUT'
+        })
+        .then(response => response.json())
+        .then(response => {
+
+        })
+      }
+      
+    </script>
+
+</html>
