@@ -31,6 +31,7 @@ model Person{
 	nombre String 
 	doc Int @unique
 	puesto String
+	telefono Int
 
 	Proyectos Proyecto[]
 }
@@ -40,7 +41,7 @@ model Tasks{
 	name String
 	inicio DateTime
 	final DateTime
-	proyecto Proyecto @relation(fields: [proyectos], references: [name])
-	proyectos String
+	proyecto Proyecto @relation(fields: [proyectosId], references: [id])
+	proyectosId Int
 }
 
