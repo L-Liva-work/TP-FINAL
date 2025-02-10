@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Proyecto</title>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+        >
+        <script src="https://kit.fontawesome.com/d1c58f18fd.js" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+      <div class="container is-fluid">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="users.html"><strong>JLF</strong></a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Inicio
+            </a>
+      
+            <a class="navbar-item">
+              Mis proyectos
+            </a>
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Usuarios
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Detalles
+                </a>
+                <a class="navbar-item is-selected" href="persons.html">
+                  Integrantes del grupo
+                </a>
+                
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="create_persons.html">
+                  <strong>Agregar usuario </strong>
+                  <span class="icon is-small is-left">
+                    <i class="fa-solid fa-user-plus"></i>
+                  </span>
+                </a>
+                <a class="button is-light">
+                  <i class="fa-solid fa-user-plus"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </nav>
+
+        <h1>Formulario:</h1>
+        <div class="container is-max-widescreen">
+          <form id ="form-editar">
+          <div class="field">
+            <label class="label">Nombre</label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="actualizar-nombre" class="input" type="text" placeholder="Ingrese su nombre">
+              <span class="icon is-small is-left">
+                <i class="fa-solid fa-user"></i>
+              </span>
+            </div>
+          </div>        
+          
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="actualizar-email" class="input " type="email" placeholder="Email">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </div>
+          </div>
+ 
+          <div class="field">
+            <label class="label">Documento</label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="actualizar-documento" class="input" type="text" placeholder="documento">
+              <span class="icon is-small is-left">
+                <i class="fa-solid fa-id-card"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Puesto</label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="actualizar-puesto" class="input" type="text" placeholder="Ingrese el puesto que ocupa">
+              <span class="icon is-small is-left">
+                <i class="fa-solid fa-briefcase"></i>
+              </span>
+            </div>
+          </div>
+                          
+          
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button class="button is-link" type="submit">Guardar</button>
+            </div>
+            <div class="control">
+              <a href="persons.html">
+                <button class="button is-link is-light" type="button" >Cancel</button>   
+              </a>
+                
+            </div>
+          </div>
+        </form>
+        </div> 
+        
+      </div>
+ 
+
+    </body>
+
+    <footer>
+    </footer>
+
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function () {
+        cargar_datos_persona()
+        document.getElementById('form-editar').addEventListener('submit', actualizar_persona)
+      })
+
+      cargar_datos_persona = function() { 
+        const urlParams = new URLSearchParams(window.location.search)
+        const persona_id = urlParams.get('id')
+
+        if (!persona_id) {
+          alert("No se encontró el ID de la persona.")
+          window.location.href = 'persons.html'
+          return
+        }
+
+        fetch('http://localhost:3000/api/v1/persons/' + persona_id)
+          .then(response => {
+              if (!response.ok) throw new Error("Error al obtener los datos")
+              return response.json()
+           })
+          .then(person => { 
+              document.getElementById('actualizar-nombre').value = person.nombre
+              document.getElementById('actualizar-email').value = person.email
+              document.getElementById('actualizar-documento').value = person.doc
+              document.getElementById('actualizar-puesto').value = person.puesto
+            })
+          .catch(error => console.error('Error al cargar a la persona:', error))
+      }
+
+      actualizar_persona = function(event){ 
+        event.preventDefault()
+
+        const url = new URLSearchParams(window.location.search)
+        const persona_id = url.get('id')
+
+        const new_body = {
+          email: document.getElementById('actualizar-email').value,
+          nombre: document.getElementById('actualizar-nombre').value,
+          doc: document.getElementById('actualizar-documento').value,
+          puesto: document.getElementById('actualizar-puesto').value
+        }
+
+        fetch('http://localhost:3000/api/v1/persons/' + persona_id, {
+          method: 'PUT',
+          headers: { 
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(new_body)
+          
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json()
+            .then(error => { 
+              throw new Error(error.message) 
+            })
+          } else{
+              return response.json()
+          }
+        })
+        .then(data => {
+          console.log('Persona actualizada con exito:', data)
+          alert('Persona actualizada con exito')
+          window.location.href = 'persons.html'
+        })
+        .catch(error => {
+          console.error('Error al actualizar persona:', error)
+          alert('Error al actualizar persona: ' + error.message)
+        })
+    }
+    </script>
+</html>
