@@ -150,15 +150,19 @@
             button.appendChild(icono)
             
             let editar = document.createElement('td')
+            let link_editar = document.createElement('a')
+            link_editar.href = 'editar_personas.html?id=' + person.id
+
             let button_editar = document.createElement('button')
             button_editar.className = 'button is-info is-light'
+
             let icono_editar = document.createElement('i')
             icono_editar.className = 'fa-solid fa-pen-to-square'
-            button_editar.onclick = function(){ actualizar_personas(person.id)}
-            button_editar.appendChild(icono_editar)
-         
 
-            editar.appendChild(button_editar)
+            button_editar.appendChild(icono_editar)
+            link_editar.appendChild(button_editar)
+            editar.appendChild(link_editar)
+            
             borrar.appendChild(button)
             tr.appendChild(id)
             tr.appendChild(nombre)
@@ -190,15 +194,6 @@
       
       }
 
-      actualizar_personas = function (id) {
-        fetch('http://localhost:3000/api/v1/persons/' + id, {
-          method: 'PUT'
-        })
-        .then(response => response.json())
-        .then(response => {
-
-        })
-      }
       
     </script>
 
