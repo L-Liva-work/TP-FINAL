@@ -101,6 +101,16 @@
           </div>
 
           <div class="field">
+            <label class="label">Telefono</label>
+            <div class="control has-icons-left has-icons-right">
+              <input id="actualizar-telefono" class="input" type="text" placeholder="Ingrese el puesto que ocupa">
+              <span class="icon is-small is-left">
+                <i class="fa-solid fa-phone"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
             <label class="label">Puesto</label>
             <div class="control has-icons-left has-icons-right">
               <input id="actualizar-puesto" class="input" type="text" placeholder="Ingrese el puesto que ocupa">
@@ -160,6 +170,7 @@
               document.getElementById('actualizar-email').value = person.email
               document.getElementById('actualizar-documento').value = person.doc
               document.getElementById('actualizar-puesto').value = person.puesto
+              document.getElementById('actualizar-telefono').value = person.telefono
             })
           .catch(error => console.error('Error al cargar a la persona:', error))
       }
@@ -174,7 +185,8 @@
           email: document.getElementById('actualizar-email').value,
           nombre: document.getElementById('actualizar-nombre').value,
           doc: document.getElementById('actualizar-documento').value,
-          puesto: document.getElementById('actualizar-puesto').value
+          puesto: document.getElementById('actualizar-puesto').value,
+          telefono: document.getElementById('actualizar-telefono').value
         }
 
         fetch('http://localhost:3000/api/v1/persons/' + persona_id, {

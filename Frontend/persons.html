@@ -78,23 +78,14 @@
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Doc</th>
+                <th>Teléfono</th>
                 <th>Puesto</th>
                 <th>Borrar</th>
                 <th>Editar</th>                
               </tr>
             </thead>
             <tbody id="data-persons">
-              <!--
-              <tr>
-                <th>1</th>
-                <th>Peppa</th>
-                <th>peppa@example</th>
-                <th>11223344</th>
-                <th>Gerente</th>
-                <th><botton>
-                </botton><th>
-              </tr>
-              -->
+              
           
             </tbody>
           </table>
@@ -137,6 +128,9 @@
             let doc = document.createElement('td')
             doc.textContent = person.doc
 
+            let telefono = document.createElement('td')
+            telefono.textContent = person.telefono
+
             let puesto = document.createElement('td')
             puesto.textContent = person.puesto 
              
@@ -168,6 +162,7 @@
             tr.appendChild(nombre)
             tr.appendChild(email)
             tr.appendChild(doc)
+            tr.appendChild(telefono)
             tr.appendChild(puesto)
             tr.appendChild(borrar)
             tr.appendChild(editar)
