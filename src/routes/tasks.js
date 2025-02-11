@@ -41,4 +41,25 @@ router.post('/', async (req, res) => {
   res.status(201).json(task)
 })
 
+router.delete('/:id', async (req, res) => {
+  const task = await prisma.tasks.findUnique({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+
+  if (task === null) {
+    res.status(404)
+  } 
+  else {
+    await prisma.task.delete({
+      where: {
+        id: parseInt(req.params.id)
+      }
+    })
+  
+    res.json(task)
+  }
+})
+
 module.exports = router
