@@ -62,4 +62,32 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+router.put('/:id', async (req, res) => {
+  let task = await prisma.tasks.findUnique({
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+
+  if (task === null) {
+    res.status(404)
+  } 
+  else {
+    task = await prisma.tasks.update({
+      where: {
+        id: task.id
+      },
+      data: {
+        name: req.body.name,
+        priority: req.body.priority,
+        description: req.body.description,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate
+      }
+    })
+
+    res.json(task)
+  }
+})
+
 module.exports = router
