@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JLF Gestor de proyectos</title>
+  <title>JLF Tareas</title>
   <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
@@ -31,7 +31,10 @@
       <div class="navbar-start">
         <a href="#" class="navbar-item">Usuarios</a>
         <a href="#" class="navbar-item">Proyectos</a>
-        <a href="tasks.html" class="navbar-item">Tareas</a>
+        <a href="#" class="navbar-item">Tareas</a>
+      </div>
+      <div class="navbar-end">
+        <a href="createTasks.html" class="navbar-item px-6 has-text-centered">Crear Tarea</a>
       </div>
     </div>
   </nav>
@@ -39,7 +42,21 @@
   <!-- main content -->
   <section class="section has-background-grey-dark">
     <div class="container">
-      <h1 class="has-text-white-ter">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero unde eius mollitia quae, corporis enim, ad perferendis sequi nobis recusandae dolorum, assumenda nostrum magnam corrupti hic dignissimos? Sint, rem eum!</h1>
+      <h1 class="title is-size-2 has-text-centered has-text-white-ter">TAREAS</h1>
+      <table class="table is-bordered is-hoverable is-fullwidth" >
+        <thead>
+          <tr class="has-background-dark">
+            <th class="has-text-white-ter">ID</th>
+            <th class="has-text-white-ter">Nombre</th>
+            <th class="has-text-white-ter">Prioridad</th>
+            <th class="has-text-white-ter">Descripcion</th>
+            <th class="has-text-white-ter">Fecha Inicio</th>
+            <th class="has-text-white-ter">Fecha Final</th>
+          </tr>
+        </thead>
+        <tbody id="tasks-data">
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -52,6 +69,8 @@
       </p>
     </div>
   </footer>
+
   <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/tasks.js"></script>
 </body>
 </html>
