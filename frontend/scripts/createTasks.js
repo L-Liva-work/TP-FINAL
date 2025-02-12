@@ -1,3 +1,17 @@
+function clear() {
+  event.preventDefault();
+
+  const name = document.getElementById('task-name');
+  const priority = document.getElementById('task-priority');
+  const description = document.getElementById('task-description');
+  const endDate = document.getElementById('task-endDate');
+
+  name.innerText = "";
+  priority.innerText = "";
+  description.innerText = "";
+  endDate.innerText = "";
+}
+
 function createTask() {
   event.preventDefault();
 
@@ -32,21 +46,7 @@ function createTask() {
     } else {
       alert('Error al crear Tarea');
     }
-  })
+  });
 
   clear();
-}
-
-function clear() {
-  event.preventDefault();
-
-  const name = document.getElementById('task-name');
-  const priority = document.getElementById('task-priority');
-  const description = document.getElementById('task-description');
-  const endDate = document.getElementById('task-endDate');
-
-  name.innerText = "";
-  priority.innerText = "";
-  description.innerText = "";
-  endDate.innerText = "";
 }
