@@ -1,9 +1,0 @@
-services:
-  db:
-    image: postgres:17
-    environment:
-      - POSTGRES_USER=JLF
-      - POSTGRES_PASSWORD=contraseñaresegura
-      - POSTGRES_DB=queuee
-    ports:
-      - 5432:5432

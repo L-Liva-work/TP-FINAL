@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JLF Tareas</title>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+  >
+</head>
+<body>
+  <!-- nav bar -->
+  <nav class="navbar has-shadow is-dark">
+    <!-- logo -->
+    <div class="navbar-brand">
+      <a href="../index.html" class="navbar-item">
+        <img src="../assets/logo.png" alt="site logo" style="max-height: 70px;" class="py-2 pl-2">
+        <img src="../assets/logo2.png" alt="site logo" style="max-height: 70px;" class="py-2">
+      </a>
+
+      <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" id="burger">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-menu" id="nav-links">
+      <div class="navbar-start">
+        <a href="persons.html" class="navbar-item">Usuarios</a>
+        <a href="projects.html" class="navbar-item">Proyectos</a>
+        <a href="tasks.html" class="navbar-item">Tareas</a>
+      </div>
+      <div class="navbar-end">
+        <a href="createTasks.html" class="navbar-item px-6 has-text-centered">Crear Tarea</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <section class="section has-background-grey-dark">
+    <div class="container">
+      <h1 class="title is-size-2 has-text-centered has-text-white-ter">TAREAS</h1>
+      <table class="table is-bordered is-hoverable is-fullwidth" >
+        <thead>
+          <tr class="has-background-dark">
+            <th class="has-text-white-ter">ID</th>
+            <th class="has-text-white-ter">Nombre</th>
+            <th class="has-text-white-ter">Prioridad</th>
+            <th class="has-text-white-ter">Descripcion</th>
+            <th class="has-text-white-ter">Fecha Inicio</th>
+            <th class="has-text-white-ter">Fecha Final</th>
+          </tr>
+        </thead>
+        <tbody id="tasks-data">
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>JLF Gestor de proyectos</strong> by Federico Bragantini, Lautaro Liva, Jael Mamani.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/tasks.js"></script>
+</body>
+</html>

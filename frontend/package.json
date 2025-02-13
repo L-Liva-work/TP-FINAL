@@ -1,0 +1,19 @@
+{
+  "name": "tp-final-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+  "dev": "nodemon -e html --exec \"serve -l 8000\"",
+  "start": "npx serve -l tcp://0.0.0.0:8000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "serve": "^14.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
