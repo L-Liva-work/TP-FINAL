@@ -86,7 +86,11 @@ router.delete('/:id', async (req, res) => {
             id:parseInt(req.params.id)
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
+    //res.send(person)
 })
 
 router.put('/:id', async (req, res) => {
@@ -114,7 +118,11 @@ router.put('/:id', async (req, res) => {
 
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
+    //res.send(person)
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar el usuario' });
     }
