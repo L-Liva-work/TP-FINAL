@@ -1,5 +1,5 @@
 function clear() {
-  preventDefault();
+  event.preventDefault();
 
   const name = document.getElementById('task-name');
   const priority = document.getElementById('task-priority');
@@ -13,7 +13,7 @@ function clear() {
 }
 
 function createTask() {
-  preventDefault();
+  event.preventDefault();
 
   const name = document.getElementById('task-name').value;
   let priority = document.getElementById('task-priority').value;
