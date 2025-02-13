@@ -29,6 +29,7 @@ model Person{
 	nombre String 
 	doc Int @unique
 	puesto String
+	telefono BigInt
 
 	Proyectos Proyecto[]
 }
