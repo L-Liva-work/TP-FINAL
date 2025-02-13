@@ -21,17 +21,26 @@ model Proyecto {
   creador     Person   @relation(fields: [creadorId], references: [id])
   creadorId   Int
 
-  task UnlockTasks[]
-}
 
-model Person {
-  id     Int    @id @default(autoincrement())
-  email  String @unique
-  nombre String
-  doc    Int    @unique
-  puesto String
+model Proyecto{
+	id Int @id @default(autoincrement())
+	name String	@unique
+	date DateTime
+	descripcion String
+	creador Person @relation(fields: [creadorId], references: [id])
+	creadorId Int
+	}
 
-  Proyectos Proyecto[]
+model Person{
+	id Int @id @default(autoincrement())
+	email String @unique
+	nombre String 
+	doc Int @unique
+	puesto String
+	telefono BigInt
+
+	Proyectos Proyecto[]
+  
 }
 
 model Tasks {

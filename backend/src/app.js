@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
 const app = express()
@@ -7,6 +8,7 @@ const port = 3000
 
 app.use(cors())
 app.use(express.json())
+app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Organizador de tareas')

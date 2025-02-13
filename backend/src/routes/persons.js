@@ -6,10 +6,15 @@ const router = express.Router()
 const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
+    console.log('Datos:' , req.body)
     try {
         const persons = await prisma.person.findMany()
-    res.json(persons)
+        const respuesta = JSON.parse( 
+            JSON.stringify(persons, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+        )
+        res.json(respuesta)
     } catch (error) {
+        console.error(" Error en el backend:", error)
         res.status(500).json({error: 'Error al obtener los usuarios'})   
     }
 })
@@ -32,7 +37,11 @@ router.get('/:id' , async (req, res) => {
         return
     }
 
-    res.json(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+
+    res.json(respuesta)
     
 })
 
@@ -49,10 +58,14 @@ router.post('', async (req, res) => {
             email: req.body.email,
             nombre: req.body.nombre,
             doc: req.body.doc,
-            puesto: req.body.puesto
+            puesto: req.body.puesto,
+            telefono: BigInt(req.body.telefono)
         }
     })
-    res.status(201).send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
 })
 
 
@@ -73,7 +86,11 @@ router.delete('/:id', async (req, res) => {
             id:parseInt(req.params.id)
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
+    //res.send(person)
 })
 
 router.put('/:id', async (req, res) => {
@@ -96,17 +113,44 @@ router.put('/:id', async (req, res) => {
             email: req.body.email,
             nombre: req.body.nombre,
             doc: req.body.doc,
-            puesto: req.body.puesto
+            puesto: req.body.puesto,
+            telefono: BigInt(req.body.telefono)
 
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
+    //res.send(person)
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar el usuario' });
     }
     
 })
 
+
+/*relacion con proyecto
+router.post('/:' + id +'/proyectos', async (req, res) => {
+    const personId = parseInt(req.params.personId)
+    const { name, date, descripcion } = req.body
+
+    try {
+        const proyecto = await prisma.proyecto.create({
+            data: {
+                name,
+                date: new Date(date),
+                descripcion,
+                creadorId: personId, 
+            },
+        })
+
+        res.status(201).json(proyecto)
+    } catch (error) {
+        res.status(500).json({ error: 'Error al agregar el proyecto' })
+    }
+})
+*/
 
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
