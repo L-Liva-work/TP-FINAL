@@ -13,6 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Proyecto {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  date        DateTime
+  descripcion String
+  creador     Person   @relation(fields: [creadorId], references: [id])
+  creadorId   Int
+
 
 model Proyecto{
 	id Int @id @default(autoincrement())
@@ -32,6 +40,7 @@ model Person{
 	telefono BigInt
 
 	Proyectos Proyecto[]
+  
 }
 
 model Tasks {
@@ -41,4 +50,15 @@ model Tasks {
   description String?
   startDate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   endDate     DateTime @default(dbgenerated("CURRENT_DATE + interval '1 month'")) @db.Date
+
+  task UnlockTasks[]
+}
+
+model UnlockTasks {
+  proyect_id Int
+  proyect    Proyecto @relation(fields: [proyect_id], references: [id])
+  task_id    Int
+  task       Tasks    @relation(fields: [task_id], references: [id])
+
+  @@unique([proyect_id, task_id])
 }
