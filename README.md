@@ -9,3 +9,10 @@
     2. Ejecutar **npm run start**
 5. En la carpeta frontend:
     1. Ejecutar el comando **npm run start**
+
+
+
+#### Capturas:
+
+![Captura Index](/frontend/assets/Index.png "Index")
+![Captura Users](/frontend/assets/Users.png "Users")
