@@ -1,6 +1,6 @@
 const regex_nombre = /^[a-zA-Z\s]{1,30}$/ 
 const regex_email =  /^[a-zA-z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9_.+-]+$/
-const regex_doc = /^[0-9]{8}$/
+const regex_doc = /^[0-9]{1,8}$/
 const regex_telefono = /^[0-9\s]{1,12}$/
 const regex_puesto = /^[a-zA-z0-9\s]+$/      
       
@@ -51,46 +51,48 @@ function validar_formulario() {
     return es_valido
 }
 
-      function create_person() {
-        event.preventDefault()
-        const nombre = document.getElementById('nombre').value 
-        const email = document.getElementById('email').value 
-        const doc = document.getElementById('documento').value 
-        const puesto = document.getElementById('puesto').value
-        const telefono = document.getElementById('telefono').value
+function create_person() {
+    event.preventDefault()
+    const nombre = document.getElementById('nombre').value 
+    const email = document.getElementById('email').value 
+    const doc = document.getElementById('documento').value 
+    const puesto = document.getElementById('puesto').value
+    const telefono = document.getElementById('telefono').value
 
-        let body =  {
-            email: email,
-            nombre: nombre,
-            doc: parseInt(doc),
-            puesto: puesto,
-            telefono: parseInt(telefono)
-        }
+      let body =  {
+          email: email,
+          nombre: nombre,
+          doc: parseInt(doc),
+          puesto: puesto,
+          telefono: parseInt(telefono)
+      }
 
-        fetch('http://localhost:3000/api/v1/persons', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
+      fetch('http://localhost:3000/api/v1/persons', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
         })
         .then(response =>{
           console.log(response.status)
           if (response.status === 201) {
               alert('Persona creada con exito') 
+              window.location.href = "persons.html";
+
               limpiar_formulario()
-              window.location.search = 'persons.html'   
+                
           } else {
             alert('Error al crear un persona')
           }
         })
 
-      }
+}
 
-      function limpiar_formulario() {
-        document.getElementById('nombre').value  = '' 
-        document.getElementById('email').value = '' 
-        document.getElementById('documento').value = ''
-        document.getElementById('puesto').value= '' 
-        document.getElementById('telefono').value = ''
-      }
+function limpiar_formulario() {
+      document.getElementById('nombre').value  = '' 
+      document.getElementById('email').value = '' 
+      document.getElementById('documento').value = ''
+      document.getElementById('puesto').value= '' 
+      document.getElementById('telefono').value = ''
+}

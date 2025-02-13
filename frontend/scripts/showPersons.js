@@ -43,8 +43,7 @@ window.onload = function () {
         
         let editar = document.createElement('td')
         let link_editar = document.createElement('a')
-        link_editar.href = 'editar_personas.html?id=' + person.id
-  
+        link_editar.href = 'editPerson.html?id=' + person.id
         let button_editar = document.createElement('button')
         button_editar.className = 'button is-info is-light'
   

@@ -1,6 +1,6 @@
 const regex_nombre = /^[a-zA-Z\s]{1,30}$/ 
 const regex_email =  /^[a-zA-z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9_.+-]+$/
-const regex_doc = /^[0-9]{8}$/
+const regex_doc = /^[0-9]{1,8}$/
 const regex_telefono = /^[0-9\s]{1,12}$/
 const regex_puesto = /^[a-zA-z0-9\s]+$/  
 
@@ -64,10 +64,16 @@ function validar_formulario() {
 
 cargar_datos_persona = function() { 
   const urlParams = new URLSearchParams(window.location.search)
+  console.log(window.location.search)
   const persona_id = urlParams.get('id')
+  console.log(persona_id)
+  console.log(typeof(persona_id))
+  const id = parseInt(persona_id)
+  console.log(typeof(id))
+  
 
-  if (!persona_id) {
-    alert("No se encontró el ID de la persona.")
+  if (isNaN(id)) {
+    alert("ID invalido.")
     window.location.href = 'persons.html'
     return
   }
