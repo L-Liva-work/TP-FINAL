@@ -4,7 +4,7 @@ const express = require('express')
 const router = express.Router()
 
 const prisma = new PrismaClient()
-
+/*
 router.get('/', async (req, res) => {
     console.log('Datos:' , req.body)
     try {
@@ -16,6 +16,24 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error(" Error en el backend:", error)
         res.status(500).json({error: 'Error al obtener los usuarios'})   
+    }
+})
+*/
+router.get('/', async (req, res) => {
+    try {
+        console.log(" Recibiendo solicitud GET en /api/v1/persons");
+        const persons = await prisma.person.findMany();
+        const respuesta = JSON.parse( 
+            JSON.stringify(persons, (key, value) => 
+                typeof value === 'bigint' ? Number(value) : value
+            )
+        );
+        console.log(" Datos obtenidos correctamente:", persons)
+
+        res.json(respuesta);
+    } catch (error) {
+        console.error(" Error en el backend:", error)
+        res.status(500).json({ error: 'Error al obtener los usuarios', detalle: error.message })
     }
 })
 

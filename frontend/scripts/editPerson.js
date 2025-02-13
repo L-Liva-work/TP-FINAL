@@ -64,13 +64,14 @@ function validar_formulario() {
 
 cargar_datos_persona = function() { 
   const urlParams = new URLSearchParams(window.location.search)
-  console.log(window.location.search)
+  console.log('Ruta: '+window.location.search) //----> Ruta: ?id=1
   const persona_id = urlParams.get('id')
-  console.log(persona_id)
-  console.log(typeof(persona_id))
-  const id = parseInt(persona_id)
-  console.log(typeof(id))
-  
+  console.log('Id: '+persona_id)   //Id: 1
+  console.log('Tipo de id: ' +typeof(persona_id)) //Tipo de id: string
+  const id = Number(persona_id)
+  console.log('Tipo de id: '+typeof(id)) //Tipo de id: number
+  console.log(isNaN(id)) //false
+  console.log(id == Number) //false
 
   if (isNaN(id)) {
     alert("ID invalido.")
