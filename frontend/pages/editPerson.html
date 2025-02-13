@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLF Usuarios</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+    <script src="https://kit.fontawesome.com/d1c58f18fd.js" crossorigin="anonymous"></script>
+  </head> 
+    <body>
+    <nav class="navbar has-shadow is-dark">
+      <!-- logo -->
+      <div class="navbar-brand">
+        <a href="../index.html" class="navbar-item">
+          <img src="../assets/logo.png" alt="site logo" style="max-height: 70px;" class="py-2 pl-2">
+          <img src="../assets/logo2.png" alt="site logo" style="max-height: 70px;" class="py-2">
+        </a>
+
+        <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" id="burger">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" id="nav-links">
+        <div class="navbar-start">
+          <a href="#" class="navbar-item">Usuarios</a>
+          <a href="#" class="navbar-item">Proyectos</a>
+          <a href="#" class="navbar-item">Tareas</a>
+        </div>
+        <div class="navbar-end">
+          <a href="persons.html" class="navbar-item px-6 has-text-centered">Usuario</a>
+        </div>
+      </div>
+    </nav>
+
+    <section class="section has-background-grey-dark">
+      <div class="container">
+      <h1 class="title is-size-2 has-text-centered has-text-white-ter">Editar Usuario</h1>
+      <form class="box" id="form-editar">
+      <div class="field">
+        <label class="label">Nombre</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Tu nombre" id="actualizar-nombre" />
+          <p class="help is-danger" id="error-nombre" style="display: none;">Nombre no puede tener números no símbolos como: # $ % & - + ()</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="ejemplo@ejemplo.com" id="actualizar-email"  />
+          <p class="help is-danger" id="error-email" style="display: none;">Email no puede tener símbolos como: # $ % & ()</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Documento</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Tu DNI" id="actualizar-documento"  />
+          <p class="help is-danger" id="error-documento" style="display: none;">Este campo solo puede tener números y un maxímo de 8 caracteres </p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Telefono</label>
+        <div class="control">
+          <input class="input" type="tel" placeholder="Tu telefono" id="actualizar-telefono" aria-placeholder="Ingrese su numero de telefono" />
+          <p class="help is-danger" id="error-telefono" style="display: none;">Este campo solo puede tener números y un máximo de 10 caracteres  </p>
+        </div>
+      </div>
+
+    <div class="field">
+      <label class="label">Puesto</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Puesto que ocupa" id="actualizar-puesto"  />
+        <p class="help is-danger" id="error-puesto" style="display: none;">Este campo no puede tener símbolos</p>
+      </div>
+    </div>
+    
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button class="button is-link" type="submit">Crear</button>
+      </div>
+      <div class="control">
+        <button class="button is-link is-light"><a href="persons.html">Cancelar</a></button>
+      </div>
+    </div>
+  </form>
+  </div>
+</section>
+    </body>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/editPerson.js"></script>
+</html>
