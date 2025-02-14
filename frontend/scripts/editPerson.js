@@ -1,8 +1,15 @@
-const regex_nombre = /^[a-zA-Z\s]{1,30}$/ 
-const regex_email =  /^[a-zA-z0-9_.]+@[a-zA-Z0-9]+\.[a-zA-Z0-9_.+-]+$/
-const regex_doc = /^[0-9]{1,8}$/
+const regex_nombre = /^[a-zA-Z\sÑñ]{1,30}$/ 
+const regex_email =  /^[a-zA-z0-9_.Ññ]+@[a-zA-Z0-9]+\.[a-zA-Z0-9_.+-]+$/
+const regex_doc = /^[0-9]{1,10}$/
 const regex_telefono = /^[0-9\s]{1,12}$/
-const regex_puesto = /^[a-zA-z0-9\s]+$/  
+const regex_puesto = /^[a-zA-z0-9Ññ\s]+$/
+
+const nombre = document.getElementById('actualizar-nombre')
+const email = document.getElementById('actualizar-email')
+const doc = document.getElementById('actualizar-documento')
+const telefono = document.getElementById('actualizar-telefono')
+const puesto = document.getElementById('actualizar-puesto')
+
 
 document.addEventListener('DOMContentLoaded', function () {
   cargar_datos_persona()
@@ -12,13 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else{
       actualizar_persona(e)
     }
-  })  
-
-  const nombre = document.getElementById('actualizar-nombre')
-  const email = document.getElementById('actualizar-email')
-  const doc = document.getElementById('actualizar-documento')
-  const telefono = document.getElementById('actualizar-telefono')
-  const puesto = document.getElementById('actualizar-puesto')
+  })
 
   nombre.addEventListener('keyup', () => validar_campo(nombre, regex_nombre, 'error-nombre'))
   email.addEventListener('keyup', () => validar_campo(email, regex_email, 'error-email'))
@@ -64,16 +65,9 @@ function validar_formulario() {
 
 cargar_datos_persona = function() { 
   const urlParams = new URLSearchParams(window.location.search)
-  console.log('Ruta: '+window.location.search) //----> Ruta: ?id=1
   const persona_id = urlParams.get('id')
-  console.log('Id: '+persona_id)   //Id: 1
-  console.log('Tipo de id: ' +typeof(persona_id)) //Tipo de id: string
-  const id = Number(persona_id)
-  console.log('Tipo de id: '+typeof(id)) //Tipo de id: number
-  console.log(isNaN(id)) //false
-  console.log(id == Number) //false
 
-  if (isNaN(id)) {
+  if (isNaN(persona_id)) {
     alert("ID invalido.")
     window.location.href = 'persons.html'
     return

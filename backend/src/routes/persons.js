@@ -1,12 +1,9 @@
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
-
 const router = express.Router()
-
 const prisma = new PrismaClient()
-/*
+
 router.get('/', async (req, res) => {
-    console.log('Datos:' , req.body)
     try {
         const persons = await prisma.person.findMany()
         const respuesta = JSON.parse( 
@@ -16,24 +13,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error(" Error en el backend:", error)
         res.status(500).json({error: 'Error al obtener los usuarios'})   
-    }
-})
-*/
-router.get('/', async (req, res) => {
-    try {
-        console.log(" Recibiendo solicitud GET en /api/v1/persons");
-        const persons = await prisma.person.findMany();
-        const respuesta = JSON.parse( 
-            JSON.stringify(persons, (key, value) => 
-                typeof value === 'bigint' ? Number(value) : value
-            )
-        );
-        console.log(" Datos obtenidos correctamente:", persons)
-
-        res.json(respuesta);
-    } catch (error) {
-        console.error(" Error en el backend:", error)
-        res.status(500).json({ error: 'Error al obtener los usuarios', detalle: error.message })
     }
 })
 
@@ -108,10 +87,11 @@ router.delete('/:id', async (req, res) => {
         JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
     )
     res.status(201).send(respuesta)
-    //res.send(person)
+
 })
 
 router.put('/:id', async (req, res) => {
+    console.log('Datos recibidos en req.body:', req.body)
     let person = await prisma.person.findUnique({
         where: {
             id: parseInt(req.params.id)
@@ -130,7 +110,7 @@ router.put('/:id', async (req, res) => {
         data: {
             email: req.body.email,
             nombre: req.body.nombre,
-            doc: req.body.doc,
+            doc: parseInt(req.body.doc),
             puesto: req.body.puesto,
             telefono: BigInt(req.body.telefono)
 
@@ -139,10 +119,10 @@ router.put('/:id', async (req, res) => {
     const respuesta = JSON.parse( 
         JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
     )
-    res.status(201).send(respuesta)
-    //res.send(person)
+    res.status(201).json(respuesta)
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar el usuario' });
+        console.error('Error al actualizar la persona:', error)
+        res.status(500).json({ error: 'Error al actualizar el usuario' })
     }
     
 })
