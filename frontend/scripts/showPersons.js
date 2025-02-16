@@ -16,7 +16,7 @@ window.onload = function () {
   
         let id = document.createElement('th')
         const link = document.createElement('a')
-        link.href = '/person?id=' + person.id
+        link.href = 'person?id=' + person.id
         link.textContent = person.id
         id.appendChild(link)
 
@@ -46,7 +46,7 @@ window.onload = function () {
         
         let editar = document.createElement('td')
         let link_editar = document.createElement('a')
-        link_editar.href = 'editPerson.html?id=' + person.id
+        link_editar.href = 'editPerson?id=' + person.id
 
         let button_editar = document.createElement('button')
         button_editar.className = 'button is-info is-light'
