@@ -128,27 +128,31 @@ router.put('/:id', async (req, res) => {
 })
 
 
-/*relacion con proyecto
-router.post('/:' + id +'/proyectos', async (req, res) => {
-    const personId = parseInt(req.params.personId)
-    const { name, date, descripcion } = req.body
-
+//relacion con proyecto
+router.get(`/:id/projects`, async (req, res) => {
     try {
-        const proyecto = await prisma.proyecto.create({
-            data: {
-                name,
-                date: new Date(date),
-                descripcion,
-                creadorId: personId, 
+        const personId = parseInt(req.params.id)
+        console.log("Buscando persona con ID:", personId);
+        const person = await prisma.person.findUnique({
+            where: {
+                id: parseInt(req.params.id)
             },
+            include:{
+                Proyectos: true
+            }
         })
-
-        res.status(201).json(proyecto)
+        console.log("Resultado de la búsqueda:", person)
+        if(person === null){
+            res.status(404).send('Persona no encontrada')
+            return
+        }
+       
+        res.json(person.Proyectos)
     } catch (error) {
-        res.status(500).json({ error: 'Error al agregar el proyecto' })
+        res.status(500).json({ error: 'Error al obtener el/los proyectos' })
     }
 })
-*/
+
 
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
