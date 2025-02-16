@@ -15,8 +15,11 @@ window.onload = function () {
         let tr = document.createElement('tr')
   
         let id = document.createElement('th')
-        id.textContent = person.id
-  
+        const link = document.createElement('a')
+        link.href = '/person?id=' + person.id
+        link.textContent = person.id
+        id.appendChild(link)
+
         let nombre = document.createElement('td')
         nombre.textContent = person.nombre
   
@@ -44,7 +47,7 @@ window.onload = function () {
         let editar = document.createElement('td')
         let link_editar = document.createElement('a')
         link_editar.href = 'editPerson.html?id=' + person.id
-        console.log("Enlace generado:", link_editar.href);
+
         let button_editar = document.createElement('button')
         button_editar.className = 'button is-info is-light'
   
