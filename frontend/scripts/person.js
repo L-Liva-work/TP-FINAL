@@ -84,15 +84,11 @@ fetch('http://localhost:3000/api/v1/persons/' + personId)
         table.appendChild(tr)
 
 
-        
-
-})
-
-fetch('http://localhost:3000/api/v1/persons/' + personId + '/proyect')
-.then((response) => response.json())
-.then((data) => {
-    console.log(data)
-
+    fetch(`http://localhost:3000/api/v1/persons/${personId}/projects`)
+    .then((response) => response.json())
+    .then((data) => {
+        console.log(data)
+    
         let table = document.getElementById('data-proyect')
         let tr = document.createElement('tr')
         
@@ -112,3 +108,7 @@ fetch('http://localhost:3000/api/v1/persons/' + personId + '/proyect')
         table.appendChild(tr)
 
 })
+
+
+})
+
