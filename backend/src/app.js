@@ -3,6 +3,7 @@ const cors = require('cors')
 
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
+const project = require('./routes/proyecto')
 const app = express()
 const port = 3000
 
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/persons', persons)
+app.use('/api/v1/projects',project)
 app.use('/api/v1/tasks', tasks)
 
 app.listen(port, () => {

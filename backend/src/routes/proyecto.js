@@ -38,18 +38,18 @@ router.get('/:id' , async (req, res) => {
 
 
 router.post('', async (req, res) => {
-    const { nombre , creador } = req.body;
+    const { name , creadorId } = req.body;
 
-    if (!nombre || !creador ) {
+    if (!name || !creadorId ) {
         return res.status(400).json({ error: 'Los campos nombre y creador son requeridos' });
     }
 
     const proyecto = await prisma.proyecto.create({
         data: {
             descripcion: req.body.descripcion,
-            name: req.body.nombre,
+            name: req.body.name,
           	date: req.body.date,
-            creador: req.body.creador
+            creadorId: req.body.creadorId
         }
     })
     res.status(201).send(proyecto)
