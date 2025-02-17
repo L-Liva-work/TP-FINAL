@@ -1,15 +1,18 @@
 const express = require('express')
 const cors = require('cors')
+const bcrypt = require('bcryptjs')
 
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
 const project = require('./routes/proyecto')
+
+const authentication = require('./routes/authentication')
+
 const app = express()
 const port = 3000
 
 app.use(cors())
 app.use(express.json())
-app.use(cors());
 
 app.get('/', (req, res) => {
   res.send('Organizador de tareas')
@@ -18,6 +21,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1/persons', persons)
 app.use('/api/v1/projects',project)
 app.use('/api/v1/tasks', tasks)
+
+app.use('/api/v1/auth', authentication )
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
