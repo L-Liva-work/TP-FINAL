@@ -59,7 +59,7 @@ router.delete('/:id', async (req, res) => {
     const project = await prisma.projects.findUnique({
         where: {
             id: parseInt(req.params.id)
-        }
+		}
     })
 
     if (project  === null){
@@ -69,7 +69,7 @@ router.delete('/:id', async (req, res) => {
 
     await prisma.projects.delete({
         where: {
-            id:parseInt(req.params.id)
+            id: parseInt(req.params.id)
         }
     })
     res.send(project)

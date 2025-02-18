@@ -1,5 +1,18 @@
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get('id');
+	
+function delProject() {
+		console.log(projectId)
+		alert('Borrando proyecto id:' + projectId)
+		fetch('http://localhost:3000/api/v1/projects/' + projectId, {
+			method: 'DELETE'
+		})
+		.then(response => response.json())
+		.then(response => {
+			console.log(response)
+			window.location.href='../pages/projects'
+		})
+	}
 
 
 fetch('http://localhost:3000/api/v1/projects/' + projectId)
