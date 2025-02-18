@@ -24,7 +24,7 @@ function createProject() {
   let body = {
     name: name,
     description: description,
-    endDate: endDate
+    endDate: endDate,
   }
 
   fetch("http://localhost:3000/api/v1/projects", {
@@ -35,9 +35,9 @@ function createProject() {
     body: JSON.stringify(body)
   }).then(response => {
     if (response.status === 201) {
-      alert('Tarea creada con exito');
+      alert('Proyecto creado con exito');
     } else {
-      alert('Error al crear Tarea');
+      alert('Error al crear Proyecto');
     }
   });
 

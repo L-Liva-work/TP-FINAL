@@ -1,7 +1,7 @@
 fetch('http://localhost:3000/api/v1/projects')
-.then(response => response.json)
-.then(projects => {
-	const projectsData = document.getElementById('main-content')
+.then((response) => response.json())
+.then((projects) => {
+	const projectsData = document.getElementById("main-content")
 
 	projects.forEach(project => {
 		const card = document.createElement("div");
@@ -10,11 +10,7 @@ fetch('http://localhost:3000/api/v1/projects')
 		cardContent.classList = ("card-content");
 		const content = document.createElement("div");
 		content.classList = ("content");
-		content.innerHTML=`
-		Proyecto: $(project.name)
-		</br>
-		Descripcion: $(project.descripcion)
-		`;
+		content.textContent= project.name;
 
 		cardContent.appendChild(content);
 		card.appendChild(cardContent);
