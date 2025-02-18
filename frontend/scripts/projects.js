@@ -23,6 +23,7 @@ fetch('http://localhost:3000/api/v1/projects')
 		const del = document.createElement("a");
 		del.classList = ("card-footer-item is-size-6");
 		del.textContent = ("Delete");
+		del.onclick = function(){delProject(project.id)};
 		
 		
 		cardFooter.appendChild(view);
@@ -34,3 +35,17 @@ fetch('http://localhost:3000/api/v1/projects')
 		projectsData.appendChild(card);
 	});
 });
+
+
+function delProject(projectId) {
+		console.log(projectId)
+		alert('Borrando proyecto id:' + projectId)
+		fetch('http://localhost:3000/api/v1/projects/' + projectId, {
+			method: 'DELETE'
+		})
+		.then(response => response.json())
+		.then(response => {
+			console.log(response)
+			window.location.href='../pages/projects'
+		})
+	}
