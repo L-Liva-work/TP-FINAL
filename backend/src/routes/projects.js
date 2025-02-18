@@ -46,9 +46,9 @@ router.post('', async (req, res) => {
 
     const project = await prisma.projects.create({
         data: {
-            descripcion: req.body.description,
             name: req.body.name,
-          	date: req.body.endDate,
+            descripcion: req.body.description,
+          	enddate: req.body.endDate,
         }
     })
     res.status(201).send(project)
