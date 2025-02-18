@@ -51,7 +51,7 @@ router.post('', async (req, res) => {
         return res.status(400).json({ error: 'Los campos nombre, email y contraseña son requeridos' });
     }
 
-    const personFind = await prisma.personFind.findUnique({
+    const personFind = await prisma.person.findUnique({
         where: {
             email
         }
