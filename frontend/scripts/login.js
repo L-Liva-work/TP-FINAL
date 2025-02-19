@@ -3,7 +3,9 @@ function iniciar_sesion() {
     
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    const mensaje = document.getElementById('mensaje-error')
+    const mensajeError = document.getElementById('mensaje-error')
+    const mensajeExito = document.getElementById('mensaje-exito')
+
 
     if (!email || !password) { 
         mensaje.style.display = 'block'
@@ -25,10 +27,13 @@ function iniciar_sesion() {
     .then(response=> {
         console.log(response.status)
         if(response.status === 200){
-            alert('Inicio de sesion exitoso')
-            window.location.href = "index.html"
+            //alert('Inicio de sesion exitoso')
+            mensajeExito.style.display = 'block'
+            setTimeout(function(){
+                window.location.href = "projects.html"
+             }, 2000)
         } else {
-            mensaje.style.display = 'block'
+            mensajeError.style.display = 'block'
         }
     })
 
