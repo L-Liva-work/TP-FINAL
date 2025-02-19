@@ -24,7 +24,7 @@ function iniciar_sesion() {
     })
     .then(response=> {
         console.log(response.status)
-        if(response.status === 201){
+        if(response.status === 200){
             alert('Inicio de sesion exitoso')
             window.location.href = "index.html"
         } else {
