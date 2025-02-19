@@ -37,12 +37,12 @@
 
   <section class="section is-medium has-background-grey-dark">
     <div class="container is-max-tablet">
-        <form class="box">
-            <h1 class="title is-size-2 has-text-centered has-text-white-ter">Iniciar sesión</h1>
-                <div class="field">
-                    <label class="label is-medium">Email</label>
+      <form id="form-login" class="box">
+          <h1 class="title is-size-2 has-text-centered has-text-white-ter">Iniciar sesión</h1>
+            <div class="field">
+                <label class="label is-medium">Email</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-medium" type="email" placeholder="Ingrse su email">
+                        <input id="email" class="input is-medium" type="email" placeholder="Ingrse su email">
                         <span class="icon is-small is-left">
                             <i class="fa-solid fa-envelope" style="color: #ffffff;"></i>
                         </span>
@@ -52,7 +52,7 @@
               <div class="field">
                     <label class="label is-medium">Contraseña</label>
                     <div class="control has-icons-left has-icons-right">
-                        <input class="input is-medium" type="password" placeholder="Ingrese su contraseña">
+                        <input id="password" class="input is-medium" type="password" placeholder="Ingrese su contraseña">
                         <span class="icon is-small is-left">
                             <i class="fa-solid fa-key" style="color: #ffffff;"></i>
                         </span>
@@ -60,8 +60,12 @@
               </div>
               <br>
                 <div class="field ">
-                    <button class="button is-success is-fullwidth">Iniciar sesión</button>
+                    <button class="button is-success is-fullwidth" onclick="iniciar_sesion()">Iniciar sesión</button>
                 </div>
+                <div class="container is-max-tablet">
+                  <p id="mensaje-error" style="text-align: center; display: none;" class="help is-danger">Error al iniciar sesion</p>
+                </div>
+                
       </form>
 
       <div class="container "></div>
@@ -84,6 +88,7 @@
 
 
   <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/login.js"></script>
 
 
 
