@@ -108,5 +108,60 @@ router.put('/:id', async (req, res) => {
 })
 
 
+//relacion con person
+
+router.post('/:id/persons', async (req, res) => {
+	const project = await prisma.projects.findUnique({
+		where:{
+			id : parseInt(req.params.id)
+		}
+	})
+
+	if (project === null) {
+			res.status(404).send('Proyecto no encontrado')
+			return
+	}
+	
+	const person = await prisma.person.findUnique({
+		where:{
+			id : parseInt(req.body.person_id)
+		}
+	})
+
+	if (person === null){
+		res.status(404).send('Persona no encontrada')
+		return
+	}
+
+	await prisma.relPersonProjects.create({
+		data:{
+			project_id : project.id,
+			person_id : person.id
+		}
+	})
+
+	res.sendStatus(201)
+})
+
+router.get('/:id/persons', async (req, res) =>{
+	const projectId = parseInt(req.params.id)
+	console.log("Buscando info de proyecto con ID:", projectId)
+	const project = await prisma.projects.findUnique({
+		where:{
+			id : parseInt(req.params.id)
+		},
+		include:{ 
+			person: true
+		}
+	})
+	console.log("Resultados:", project)
+	if(project === null){
+		res.status(404).send("Proyecto no encontrado")
+		return
+	}
+
+	res.json(project.person)
+})
+
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
