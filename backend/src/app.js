@@ -7,6 +7,7 @@ const tasks = require('./routes/tasks')
 const project = require('./routes/proyecto')
 
 const authentication = require('./routes/authentication')
+const verifyToken = require('./middlewares/verifyToken')
 
 const app = express()
 const port = 3000
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
   res.send('Organizador de tareas')
 })
 
-app.use('/api/v1/persons', persons)
+app.use('/api/v1/persons',verifyToken, persons)
 app.use('/api/v1/projects',project)
 app.use('/api/v1/tasks', tasks)
 

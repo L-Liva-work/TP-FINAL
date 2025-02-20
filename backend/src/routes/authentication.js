@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({email: personFind.email}, "extra-secreto", {expiresIn: "1h"})
     //res.json({token})
     //res.status(201).json('Inicio de sesión exitoso'); // hasta aca todo bien
-    //console.log('Token generado: '+ token)
+    console.log('Token generado: '+ token)
     res.json({
         mensaje: "Usuario logeado de forma correcta",
         persona:{
