@@ -59,11 +59,9 @@ router.post('/', async (req, res) => {
     data: {
       name: req.body.name,
       priority: req.body.priority,
-      assigne: req.body.assigne,
       description: req.body.description,
-      progress: req.body.progress,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
+      assigne: req.body.assigne,
+      endDate: new Date(req.body.endDate),
       project_id: parseInt(req.body.project_id)
     }
   })
@@ -143,16 +141,15 @@ router.put('/:id', async (req, res) => {
     data: {
       name: req.body.name,
       priority: req.body.priority,
-      assigne: req.body.assigne,
       description: req.body.description,
-      progress: req.body.progress,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate
+      progress: parseInt(req.body.progress),
+      assigne: req.body.assigne,
+      startDate: new Date(req.body.startDate),
+      endDate: new Date(req.body.endDate)
     }
   })
   
   res.status(200).json(task);
 })
-
 
 module.exports = router
