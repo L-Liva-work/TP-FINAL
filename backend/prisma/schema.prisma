@@ -31,7 +31,7 @@ model Person {
   doc      Int    @unique
   puesto   String
   telefono BigInt
-  password String
+  password String?
 
   Proyectos relPersonProjects[]
 }

@@ -176,3 +176,9 @@ function deleteTask() {
   buttonInModal.removeEventListener("click", deleteTask);
   modal.classList.remove("is-active");
 }
+
+const createTasksButton = document.getElementById("createTasks");
+
+createTasksButton.addEventListener("click", () => {
+	window.location.href = `createTasks?id=${projectId}`;
+});
