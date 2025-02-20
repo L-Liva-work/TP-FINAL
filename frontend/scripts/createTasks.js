@@ -22,14 +22,6 @@ submitButton.onclick = function(){createTask()}
 const personsList = document.getElementById("persons-list");
 const taskAssigne = personsList.value;
 
-const body = {
-  name: taskName.value,
-  priority: taskPriority.value,
-  assigne: taskAssigne.value, 
-  description: taskDescription.value,
-  endDate: new Date(taskEndDate.value),
-  project_id: parseInt(projectId)
-}
 
 function loadUsers() {
   fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons/`)
@@ -59,7 +51,14 @@ function createTask() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)})
+      body: JSON.stringify({
+        name: taskName.value,
+        priority: taskPriority.value,
+        assigne: taskAssigne.value, 
+        description: taskDescription.value,
+        endDate: new Date(taskEndDate.value),
+        project_id: parseInt(projectId)
+      })})
     .then(response => {
       console.log(response);
     });
