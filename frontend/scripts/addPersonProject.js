@@ -3,11 +3,14 @@ const projectId = urlParams.get('id')
 
 console.log(projectId)
 
-const personId = document.getElementById("personid").value;
-
 
 addPersonProject = function() {
-	fetch('http://localhost:3000/api/v1/projects/${projectId}/person', {
+	event.preventDefault();
+
+	const personId = document.getElementById("personid").value;
+	console.log(personId)
+
+	fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons`, {
 		method: 'POST',
 		headers: {
 			'Content-Type' : 'application/json'
