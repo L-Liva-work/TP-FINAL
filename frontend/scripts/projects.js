@@ -15,14 +15,15 @@ fetch('http://localhost:3000/api/v1/projects')
 		cardFooter.classList = ("card-footer");
 		const view = document.createElement("a");
 		view.classList = ("card-footer-item is-size-6");
-		view.textContent = ("View");
+		view.textContent = ("Ver");
 		view.href = 'viewProject?id=' + project.id;
 		const edit = document.createElement("a");
 		edit.classList = ("card-footer-item is-size-6");
-		edit.textContent = ("Edit");
+		edit.textContent = ("Editar");
+		edit.href = 'editProject?id=' + project.id;
 		const del = document.createElement("a");
 		del.classList = ("card-footer-item is-size-6");
-		del.textContent = ("Delete");
+		del.textContent = ("Borrar");
 		del.onclick = function(){delProject(project.id)};
 		
 		

@@ -76,9 +76,10 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.put('/:id', async (req, res) => {
+		const id = parseInt(req.params.id)
     let project = await prisma.projects.findUnique({
         where: {
-            id: parseInt(req.params.id)
+            id
         }
     })
     if (project === null) {
@@ -89,12 +90,12 @@ router.put('/:id', async (req, res) => {
     try {
         project = await prisma.projects.update({
         where: {
-            id: project.id,
-        },
+            id  
+				},
 					data: {
-							descripcion: req.body.descripcion,
-							name: req.body.nombre,
-							date: req.body.date,
+							name: req.body.name,
+							descripcion: req.body.description,
+							enddate: req.body.endDate,
 					}
     })
     res.send(project)
