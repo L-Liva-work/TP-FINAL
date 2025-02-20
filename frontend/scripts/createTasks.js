@@ -1,52 +1,78 @@
-function clear() {
-  event.preventDefault();
+const urlParams = new URLSearchParams(window.location.search);
+const projectId = urlParams.get("id");
+loadUsers();
 
-  const name = document.getElementById('task-name');
-  const priority = document.getElementById('task-priority');
-  const description = document.getElementById('task-description');
-  const endDate = document.getElementById('task-endDate');
+const taskName = document.getElementById('task-name');
+const taskPriority = document.getElementById('task-priority');
+let priority = taskPriority.value;
 
-  name.innerText = "";
-  priority.innerText = "";
-  description.innerText = "";
-  endDate.innerText = "";
+if (priority != "LOW" && priority != "MEDIUM" && priority != "HIGH" && priority != "HIGHEST") {
+  taskPriority.value = "NONE";
+}
+
+const taskDescription = document.getElementById('task-description');
+
+const taskEndDate = document.getElementById('task-endDate');
+if (!taskEndDate.value) {
+  taskEndDate.value = undefined;
+}
+
+const submitButton = document.getElementById("submit-button");
+submitButton.onclick = function(){createTask()}
+const personsList = document.getElementById("persons-list");
+const taskAssigne = personsList.value;
+
+
+function loadUsers() {
+  fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons/`)
+  .then(response => response.json())
+  .then(persons => {
+    persons.forEach(person => {
+      let option = document.createElement("option");
+      let personId = person.person_id;
+      
+      fetch(`http://localhost:3000/api/v1/persons/${personId}`)
+      .then(response => response.json())
+      .then(data => {
+        option.value = data.nombre;
+        option.innerText = data.nombre;
+        personsList.appendChild(option);
+      });
+    });
+  });
 }
 
 function createTask() {
-  event.preventDefault();
-
-  const name = document.getElementById('task-name').value;
-  let priority = document.getElementById('task-priority').value;
-  if (priority != "mid" && priority != "high") {
-    priority = "low";
-  }
-  const description = document.getElementById('task-description').value;
-  let endDate = document.getElementById('task-endDate').value;
-  if (!endDate) {
-    endDate = undefined;
+  if (!taskName.value) {
+    taskName.classList.add(("is-danger"));
   } else {
-    endDate = new Date(endDate);
+    fetch("http://localhost:3000/api/v1/tasks", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: taskName.value,
+        priority: taskPriority.value,
+        assigne: taskAssigne.value, 
+        description: taskDescription.value,
+        endDate: new Date(taskEndDate.value),
+        project_id: parseInt(projectId)
+      })})
+    .then(response => {
+      console.log(response);
+    });
   }
-  let body = {
-    name: name,
-    priority: priority,
-    description: description,
-    endDate: endDate
-  }
-
-  fetch("http://localhost:3000/api/v1/tasks", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(body)
-  }).then(response => {
-    if (response.status === 201) {
-      alert('Tarea creada con exito');
-    } else {
-      alert('Error al crear Tarea');
-    }
-  });
-
-  clear();
 }
+
+const clearButton = document.getElementById("clear-button");
+
+clearButton.addEventListener("click", () => {
+  taskName.value = "";
+  taskPriority.value = "NONE";
+  taskPriority.defaultSelected = true;
+  taskAssigne.value = "No Asignado";
+  taskAssigne.defaultSelected = true;
+  taskDescription.value = "";
+  taskEndDate.value = new Date("");
+});

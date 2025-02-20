@@ -42,24 +42,36 @@
   </nav>
 
   <!-- main content -->
-  <section class="section has-background-grey-dark">
+  <section id="secction-content" class="section has-background-grey-dark">
     <div class="container">
-      <h1 class="title is-size-2 has-text-centered has-text-white-ter">Usuarios</h1>
+      <h1 id="title" class="title is-size-2 has-text-centered has-text-white-ter">Usuario </h1>  
       <table class="table is-bordered is-hoverable is-fullwidth" >
+        <h3 class="title is-3">Datos: </h3>
         <thead>
           <tr class="has-background-dark">
-            <th class="has-text-white-ter">ID</th>
             <th class="has-text-white-ter">Nombre</th>
             <th class="has-text-white-ter">Email</th>
             <th class="has-text-white-ter">Documento</th>
             <th class="has-text-white-ter"> Telefono</th>
             <th class="has-text-white-ter"> Puesto</th>
-            <th class="has-text-white-ter"> Eliminar</th>
-            <th class="has-text-white-ter"> Editar</th>
-
           </tr>
         </thead>
-        <tbody id="data-persons">
+        <tbody id="data-person">
+        </tbody>
+      </table>
+      <br>
+      <br>
+      <table class="table is-bordered is-hoverable is-fullwidth" >
+        <h3 class="title is-3">Proyectos:</h3>
+        <thead>
+
+          <tr class="has-background-dark">
+            <th class="has-text-white-ter">Nombre</th>
+            <th class="has-text-white-ter">Fecha</th>
+            <th class="has-text-white-ter">Descripcion</th>
+          </tr>
+        </thead>
+        <tbody id="data-project">
         </tbody>
       </table>
     </div>
@@ -76,7 +88,7 @@
   </body>
 
   <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/showPersons.js"></script>
+  <script src="../scripts/person.js"></script>
    
 
 </html>

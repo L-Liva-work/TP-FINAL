@@ -1,12 +1,9 @@
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
-
 const router = express.Router()
-
 const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
-    console.log('Datos:' , req.body)
     try {
         const persons = await prisma.person.findMany()
         const respuesta = JSON.parse( 
@@ -47,11 +44,21 @@ router.get('/:id' , async (req, res) => {
 
 
 router.post('', async (req, res) => {
-    const { nombre, email } = req.body;
+    const { nombre, email , password} = req.body;
 
-    if (!nombre || !email) {
-        return res.status(400).json({ error: 'Los campos nombre y email son requeridos' });
+    if (!nombre || !email || !password) {
+        return res.status(400).json({ error: 'Los campos nombre, email y contraseña son requeridos' });
     }
+
+    const personFind = await prisma.person.findUnique({
+        where: {
+            email
+        }
+    })
+    if (personFind){
+        return res.status(400).json('Ya existe una persona registrada con ese correo')
+    }
+
 
     const person = await prisma.person.create({
         data: {
@@ -59,7 +66,8 @@ router.post('', async (req, res) => {
             nombre: req.body.nombre,
             doc: req.body.doc,
             puesto: req.body.puesto,
-            telefono: BigInt(req.body.telefono)
+            telefono: BigInt(req.body.telefono),
+            password: null
         }
     })
     const respuesta = JSON.parse( 
@@ -90,10 +98,11 @@ router.delete('/:id', async (req, res) => {
         JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
     )
     res.status(201).send(respuesta)
-    //res.send(person)
+
 })
 
 router.put('/:id', async (req, res) => {
+    console.log('Datos recibidos en req.body:', req.body)
     let person = await prisma.person.findUnique({
         where: {
             id: parseInt(req.params.id)
@@ -112,7 +121,7 @@ router.put('/:id', async (req, res) => {
         data: {
             email: req.body.email,
             nombre: req.body.nombre,
-            doc: req.body.doc,
+            doc: parseInt(req.body.doc),
             puesto: req.body.puesto,
             telefono: BigInt(req.body.telefono)
 
@@ -121,36 +130,44 @@ router.put('/:id', async (req, res) => {
     const respuesta = JSON.parse( 
         JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
     )
-    res.status(201).send(respuesta)
-    //res.send(person)
+    res.status(201).json(respuesta)
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar el usuario' });
+        console.error('Error al actualizar la persona:', error)
+        res.status(500).json({ error: 'Error al actualizar el usuario' })
     }
     
 })
 
 
-/*relacion con proyecto
-router.post('/:' + id +'/proyectos', async (req, res) => {
-    const personId = parseInt(req.params.personId)
-    const { name, date, descripcion } = req.body
-
+//relacion con proyecto
+router.get(`/:id/projects`, async (req, res) => {
     try {
-        const proyecto = await prisma.proyecto.create({
-            data: {
-                name,
-                date: new Date(date),
-                descripcion,
-                creadorId: personId, 
+        const personId = parseInt(req.params.id)
+        //console.log("Buscando persona con ID:", personId);
+        const person = await prisma.person.findUnique({
+            where: {
+                id: parseInt(req.params.id)
             },
+            include:{
+                Proyectos: {
+                    include:{
+                        project:true
+                    }
+                }
+            }
         })
-
-        res.status(201).json(proyecto)
+        //console.log("Resultado de la búsqueda:", person)
+        if(person === null){
+            res.status(404).send('Persona no encontrada')
+            return
+        }
+       
+        res.json(person.Proyectos)
     } catch (error) {
-        res.status(500).json({ error: 'Error al agregar el proyecto' })
+        res.status(500).json({ error: 'Error al obtener el/los proyectos' })
     }
 })
-*/
+
 
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;

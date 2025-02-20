@@ -13,52 +13,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Proyecto {
+model Projects {
   id          Int      @id @default(autoincrement())
   name        String   @unique
-  date        DateTime
+  startdate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
+  enddate     DateTime
   descripcion String
-  creador     Person   @relation(fields: [creadorId], references: [id])
-  creadorId   Int
 
+  person relPersonProjects[]
+  tasks Tasks[]
+}
 
-model Proyecto{
-	id Int @id @default(autoincrement())
-	name String	@unique
-	date DateTime
-	descripcion String
-	creador Person @relation(fields: [creadorId], references: [id])
-	creadorId Int
-	}
+model Person {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  nombre   String
+  doc      Int    @unique
+  puesto   String
+  telefono BigInt
+  password String?
 
-model Person{
-	id Int @id @default(autoincrement())
-	email String @unique
-	nombre String 
-	doc Int @unique
-	puesto String
-	telefono BigInt
-
-	Proyectos Proyecto[]
-  
+  Proyectos relPersonProjects[]
 }
 
 model Tasks {
   id          Int      @id @default(autoincrement())
   name        String
-  priority    String
+  priority    String   @default("NONE")
   description String?
+  progress    Int      @default(0)
+  assigne     String   @default("No Asignado")
   startDate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   endDate     DateTime @default(dbgenerated("CURRENT_DATE + interval '1 month'")) @db.Date
 
-  task UnlockTasks[]
+  project    Projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  project_id Int
 }
 
-model UnlockTasks {
-  proyect_id Int
-  proyect    Proyecto @relation(fields: [proyect_id], references: [id])
-  task_id    Int
-  task       Tasks    @relation(fields: [task_id], references: [id])
+model relPersonProjects {
+  id Int @id @default(autoincrement())
 
-  @@unique([proyect_id, task_id])
+  project_id Int
+  project    Projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  person_id  Int
+  person     Person   @relation(fields: [person_id], references: [id], onDelete: Cascade)
 }

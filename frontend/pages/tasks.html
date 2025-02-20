@@ -8,6 +8,20 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
   >
+  <style>
+    .table th { text-align: center !important; }
+    .table td, .table th { width: 14%; vertical-align: middle; }
+    .task-description {
+      max-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .task-description:hover {
+      overflow: visible;
+      white-space: unset;
+    }
+  </style>
 </head>
 <body>
   <!-- nav bar -->
@@ -29,13 +43,12 @@
 
     <div class="navbar-menu" id="nav-links">
       <div class="navbar-start">
-        <a href="persons.html" class="navbar-item">Usuarios</a>
-        <a href="projects.html" class="navbar-item">Proyectos</a>
-        <a href="tasks.html" class="navbar-item">Tareas</a>
+        <a href="persons.html" class="navbar-item px-6">Usuarios</a>
+        <a href="projects.html" class="navbar-item px-6">Proyectos</a>
       </div>
       <div class="navbar-end">
-        <a href="createTasks.html" class="navbar-item px-6 has-text-centered">Crear Tarea</a>
-      </div>
+        <a id="createTasks" class="navbar-item px-6 has-text-centered">Crear tarea</a>
+    </div>
     </div>
   </nav>
 
@@ -43,22 +56,37 @@
   <section class="section has-background-grey-dark">
     <div class="container">
       <h1 class="title is-size-2 has-text-centered has-text-white-ter">TAREAS</h1>
-      <table class="table is-bordered is-hoverable is-fullwidth" >
-        <thead>
-          <tr class="has-background-dark">
-            <th class="has-text-white-ter">ID</th>
-            <th class="has-text-white-ter">Nombre</th>
-            <th class="has-text-white-ter">Prioridad</th>
-            <th class="has-text-white-ter">Descripcion</th>
-            <th class="has-text-white-ter">Fecha Inicio</th>
-            <th class="has-text-white-ter">Fecha Final</th>
-          </tr>
-        </thead>
-        <tbody id="tasks-data">
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="table is-bordered is-hoverable is-fullwidth has-text-centered">
+          <thead>
+            <tr class="has-background-dark">
+              <th class="has-text-white-ter">Nombre</th>
+              <th class="has-text-white-ter">Prioridad</th>
+              <th class="has-text-white-ter">Encargado</th>
+              <th class="has-text-white-ter">Descripción</th>
+              <th class="has-text-white-ter">Progreso</th>
+              <th class="has-text-white-ter">Fecha Inicio</th>
+              <th class="has-text-white-ter">Fecha Final</th>
+            </tr>
+          </thead>
+          <tbody id="tasks-data">
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
+
+  <!-- delete modal -->
+  <div id="delete-modal" class="modal">
+    <div id="delete-modal-background" class="modal-background"></div>
+    <div class="modal-content has-background-grey-lighter p-5">
+      <h3 class="title is-size-3 has-text-centered has-text-black">¿Estás seguro?</h3>
+      <div class="field is-grouped is-grouped-center">
+        <button id="delete-modal-button" class="button is-danger is-fullwidth">Borrar</button>
+        <button id="delete-modal-cancel" class="button is-dark is-fullwidth">Cancelar</button>
+      </div>
+    </div>
+  </div>
 
   <!-- footer -->
   <footer class="footer">
@@ -71,5 +99,6 @@
 
   <script src="../scripts/navbar.js"></script>
   <script src="../scripts/tasks.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </body>
 </html>
