@@ -42,6 +42,8 @@ fetch('http://localhost:3000/api/v1/projects/' + projectId)
 
 	const projectDesc = document.getElementById("project-desc");
 	projectDesc.textContent = project.descripcion;
-	
 });
 
+redirect = function () {
+	window.location.href= 'editProject?id=' + projectId;
+}
