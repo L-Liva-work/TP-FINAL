@@ -47,3 +47,21 @@ fetch('http://localhost:3000/api/v1/projects/' + projectId)
 redirect = function () {
 	window.location.href= 'editProject?id=' + projectId;
 }
+
+
+const viewTasksButton = document.getElementById("viewTasks");
+
+viewTasksButton.addEventListener("click", () => {
+	window.location.href = `tasks?id=${projectId}`;
+});
+
+const createTasksButton = document.getElementById("createTasks");
+
+createTasksButton.addEventListener("click", () => {
+	window.location.href = `createTasks?id=${projectId}`;
+});
+
+addPersonProject = function() {
+	window.location.href = 'addPersonProject?id=' + projectId;
+}
+

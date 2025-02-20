@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+	<html lang="en" class="theme-dark">
+	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>JLF Proyectos</title>
+	  <link
+	  rel="stylesheet"
+	  href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+	  >
+	</head>
+	<body>
+  <!-- nav bar -->
+	<nav class="navbar has-shadow is-dark">
+	<!-- logo -->
+	<div class="navbar-brand">
+	  <a href="../index.html" class="navbar-item">
+		<img src="../assets/logo.png" alt="site logo" style="max-height: 70px;" class="py-2 pl-2">
+		<img src="../assets/logo2.png" alt="site logo" style="max-height: 70px;" class="py-2">
+	  </a>
+
+	  <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" id="burger">
+		<span aria-hidden="true"></span>
+		<span aria-hidden="true"></span>
+		<span aria-hidden="true"></span>
+		<span aria-hidden="true"></span>
+	  </a>
+	</div>
+
+	<div class="navbar-menu" id="nav-links">
+	  <div class="navbar-start">
+        <a href="persons.html" class="navbar-item">Usuarios</a>
+        <a href="projects.html" class="navbar-item">Proyectos</a>
+	  </div>
+	  <div class="navbar-end">
+	  </div>
+	</div>
+	</nav>
+
+	<!-- main content -->
+	<section class = "section has-background-grey-dark">
+	<div class = "container">
+	<form class = "box">
+		<div class = "field">
+			<label class = "label"> Id de la persona a agregar</label>
+			<div class = "control">
+				<input id = "personid" class = "input" type="text" placeholder="ID" required />
+			</div>
+			<div class = "field is-grouped is-grouped-centered">
+				<div class = "control">
+					<button class = "button is-link" onclick=>Agregar</button>
+				</div>
+				<div class = "control">
+					<button class = "button is-link is-light" onclick=>Cancelar</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	</section>
+
+	</body>
+
+	<!-- footer -->
+
+	  <footer class="footer">
+		<div class="content has-text-centered">
+		  <p>
+			<strong>JLF Gestor de proyectos</strong> by Federico Bragantini, Lautaro Liva, Jael Mamani.
+		  </p>
+		</div>
+    </footer>
+
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/addPersonProject.js"></script>
+</html>
+
+	</form>
+

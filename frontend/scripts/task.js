@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const taskId = urlParams.get("id");
 
+var projectId;
 const title = document.getElementById("task-title");
 title.innerText = `Tarea ${taskId}`;
 
@@ -21,7 +22,7 @@ fetch(`http://localhost:3000/api/v1/tasks/${taskId}`)
 .then(task => {
   taskName.innerText = task.name; 
   taskDescription.innerText = task.description;
-
+  projectId = task.project_id;
   taskStartDate.innerText = new Intl.DateTimeFormat("es-AR", { dateStyle: "full" }).format(new Date(task.startDate));;
   taskEndDate.innerText = new Intl.DateTimeFormat("es-AR", { dateStyle: "full" }).format(new Date(task.endDate));
 
@@ -135,5 +136,5 @@ function deleteTask() {
   buttonInModal.id = "delete-modal-button";
   buttonInModal.removeEventListener("click", deleteTask);
   modal.classList.remove("is-active");
-  window.location.href = 'tasks.html';
+  window.location.href = `tasks?id=${projectId}`;
 }
