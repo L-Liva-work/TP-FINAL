@@ -5,9 +5,8 @@ const bcrypt = require('bcryptjs')
 const projects = require('./routes/projects')
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
-
 const authentication = require('./routes/authentication')
-const verifyToken = require('./middlewares/verifyToken')
+//const verifyToken = require('./middlewares/verifyToken')
 
 const app = express()
 const port = 3000
@@ -20,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/v1/projects', projects)
-app.use('/api/v1/persons',verifyToken, persons)
+app.use('/api/v1/persons', persons)
 app.use('/api/v1/tasks', tasks)
 
 app.use('/api/v1/auth', authentication )
