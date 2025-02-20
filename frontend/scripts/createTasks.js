@@ -18,7 +18,7 @@ if (!taskEndDate.value) {
 }
 
 const submitButton = document.getElementById("submit-button");
-submitButton.addEventListener("click", createTask);
+submitButton.onclick = function(){createTask()}
 const personsList = document.getElementById("persons-list");
 const taskAssigne = personsList.value;
 
@@ -62,7 +62,6 @@ function createTask() {
       body: JSON.stringify(body)})
     .then(response => {
       console.log(response);
-      window.location.href = `tasks?id=${projectId}`;
     });
   }
 }

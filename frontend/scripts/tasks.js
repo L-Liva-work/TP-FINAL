@@ -5,6 +5,7 @@ console.log(projectId);
 fetch(`http://localhost:3000/api/v1/tasks/project/${projectId}`)
 .then(response => response.json())
 .then(tasks => {
+	console.log(tasks)
   const tasksData = document.getElementById("tasks-data");
   
   tasks.forEach(task => {
