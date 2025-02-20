@@ -1,25 +1,21 @@
 function clear() {
   event.preventDefault();
 
-  const name = document.getElementById('task-name');
-  const description = document.getElementById('task-description');
-  const endDate = document.getElementById('task-endDate');
+  const name = document.getElementById('project-name');
+  const description = document.getElementById('project-description');
+  const endDate = document.getElementById('project-endDate');
 
   name.innerText = "";
   description.innerText = "";
   endDate.innerText = "";
 }
 
-function createTask() {
+function createProject() {
   event.preventDefault();
 
-  const name = document.getElementById('task-name').value;
-  let priority = document.getElementById('task-priority').value;
-  if (priority != "mid" && priority != "high") {
-    priority = "low";
-  }
-  const description = document.getElementById('task-description').value;
-  let endDate = document.getElementById('task-endDate').value;
+  const name = document.getElementById('project-name').value;
+  const description = document.getElementById('project-description').value;
+  let endDate = document.getElementById('project-endDate').value;
   if (!endDate) {
     endDate = undefined;
   } else {
@@ -27,12 +23,11 @@ function createTask() {
   }
   let body = {
     name: name,
-    priority: priority,
     description: description,
-    endDate: endDate
+    endDate: endDate,
   }
 
-  fetch("http://localhost:3000/api/v1/tasks", {
+  fetch("http://localhost:3000/api/v1/projects", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -40,9 +35,9 @@ function createTask() {
     body: JSON.stringify(body)
   }).then(response => {
     if (response.status === 201) {
-      alert('Tarea creada con exito');
+      alert('Proyecto creado con exito');
     } else {
-      alert('Error al crear Tarea');
+      alert('Error al crear Proyecto');
     }
   });
 

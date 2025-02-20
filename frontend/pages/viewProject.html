@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 	<html lang="en" class="theme-dark">
 	<head>
@@ -41,43 +40,43 @@
 	</nav>
 
   <!-- main content -->
-	  <section class="section has-background-grey-dark">
-		<div class="container">
-		  <h1 class="title is-size-2 has-text-centered has-text-white-ter">Nuevo Proyecto</h1>
-		  <form class="box">
-			<div class="field">
-			  <label class="label">Nombre</label>
-			  <div class="control">
-				<input class="input" type="text" placeholder="Nombre del proyecto" id="project-name" required />
+  <section>
+	  <div class= "container">
+		<h1 id="project-name-title" class="title is-size-2 has-text-centered has-text-white-ter"></h1>
+		<table class="table is-bordered is-hoverable is-fullwidth">
+			<thead>
+				<tr class="has-background-dark">
+					<th class="has-text-white-ter">ID</th>
+					<th class="has-text-white-ter">Fecha Inicio</th>
+					<th class="has-text-white-ter">Fecha Final</th>
+				</tr>
+			</thead>
+			<tbody id="project-data">
+			</tbody>
+			</table>
+	  </div>
+  </section>
+  
+  <section class="container mgt-large">
+	  <p class="is-size-2 is-underlined"> Descripcion del proyecto </p>
+	  <div class="card is-shadowless">
+		  <div class"card-content">
+			  <div id="project-desc" class="content is-size-4">
 			  </div>
-			</div>
+		  </div>
+	  </div>
+  </section>
 
-			<div class="field">
-			  <label class="label">Descripción</label>
-			  <div class="control">
-				<textarea id="project-description" class="textarea" placeholder="Descripción"></textarea>
-			  </div>
-			</div>
-
-			<div class="field">
-			  <label class="label">Fecha limite</label>
-			  <div class="control">
-				<input id="project-endDate" class="input" type="date">
-			  </div>
-			</div>
-
-			<div class="field is-grouped is-grouped-centered">
-			  <div class="control">
-				<button class="button is-link" onclick="createProject()">Submit</button>
-			  </div>
-			  <div class="control">
-				<button class="button is-link is-light" onclick="clear()">Limpiar</button>
-			  </div>
-			</div>
-		  </form>
-		</div>
+  <section>
+	  <div class= "container mt-6">
+			  <button id="buttonEdit" onclick=redirect() class="button is-medium">Editar</button>
+			  <button id="buttonDelete" onclick=delProject() class="button is-medium">Borrar</button>
+	  </div>
 	  </section>
-			
+
+		<section class= "container mt-6">
+			<button class="button is-link">Agregar personas</button>
+		</section>
 
 
   <!-- footer -->
@@ -90,4 +89,8 @@
   </footer>
 
   <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/createProjects.js"></script>
+  <script src="../scripts/viewProject.js"></script>
+	</body>
+	</html>
+ 
+
