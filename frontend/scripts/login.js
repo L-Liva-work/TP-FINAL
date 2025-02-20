@@ -24,17 +24,24 @@ function iniciar_sesion() {
         },
         body: JSON.stringify(body)
     })
-    .then(response=> {
-        console.log(response.status)
-        if(response.status === 200){
-            //alert('Inicio de sesion exitoso')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        if (data.persona && data.persona.token) {
+            localStorage.setItem('token', data.persona.token)
             mensajeExito.style.display = 'block'
-            setTimeout(function(){
-                window.location.href = "projects.html"
-             }, 2000)
+            setTimeout(function() {
+                //window.location.href = "projects.html"
+                console.log(data.persona.id)
+                window.location.href= "person.html?id=" + data.persona.id
+            }, 2000)
         } else {
-            mensajeError.style.display = 'block'
+            setTimeout(function () {
+               mensajeError.style.display = 'block' 
+            },1000)
+            
+            window.location.reload()
         }
     })
 
-}    
+} 
