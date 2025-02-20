@@ -5,7 +5,6 @@ const bcrypt = require('bcryptjs')
 const projects = require('./routes/projects')
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
-const project = require('./routes/proyecto')
 
 const authentication = require('./routes/authentication')
 const verifyToken = require('./middlewares/verifyToken')
