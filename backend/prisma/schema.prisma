@@ -13,8 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-
 model Projects{
 	id Int @id @default(autoincrement())
 	name String	@unique
@@ -26,15 +24,16 @@ model Projects{
 	person relPersonProjects[]
 	}
 
-model Person{
-	id Int @id @default(autoincrement())
-	email String @unique
-	nombre String 
-	doc Int @unique
-	puesto String
-	telefono BigInt
-  
-	person relPersonProjects[]
+model Person {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  nombre   String
+  doc      Int    @unique
+  puesto   String
+  telefono BigInt
+  password String
+
+  Proyectos relPersonProjects[] 
 }
 
 model Tasks {
