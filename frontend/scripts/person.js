@@ -1,13 +1,23 @@
 const urlParam = new URLSearchParams(window.location.search)
 const personId = urlParam.get('id')
 
+const token = localStorage.getItem("token")
+if (!token) {
+    window.location.href = "login.html"   
+}
+
 document.getElementById('title').textContent += personId
 
-fetch('http://localhost:3000/api/v1/persons/' + personId)
+fetch('http://localhost:3000/api/v1/persons/' + personId ,{
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+ token
+    }
+})
 .then((response) => response.json())
 .then((data) => {
-    //console.log('Los datos de esta perosona son: ')
-    //console.log(data)
+    console.log('Los datos de esta persona son: ')
+    console.log(data)
     
         let table = document.getElementById('data-person')
         let tr = document.createElement('tr')
