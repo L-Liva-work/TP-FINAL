@@ -8,7 +8,11 @@ function iniciar_sesion() {
 
 
     if (!email || !password) { 
-        mensaje.style.display = 'block'
+        mensajeError.style.display = 'block'
+        setTimeout(function () {
+             window.location.reload()
+         },5000)
+         
         return
     }
 
