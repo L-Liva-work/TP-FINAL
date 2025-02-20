@@ -1,6 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get("id");
-//loadUsers();
+loadUsers();
 
 const taskName = document.getElementById('task-name');
 const taskPriority = document.getElementById('task-priority');
