@@ -143,16 +143,20 @@ router.put('/:id', async (req, res) => {
 router.get(`/:id/projects`, async (req, res) => {
     try {
         const personId = parseInt(req.params.id)
-        console.log("Buscando persona con ID:", personId);
+        //console.log("Buscando persona con ID:", personId);
         const person = await prisma.person.findUnique({
             where: {
                 id: parseInt(req.params.id)
             },
             include:{
-                Proyectos: true
+                Proyectos: {
+                    include:{
+                        project:true
+                    }
+                }
             }
         })
-        console.log("Resultado de la búsqueda:", person)
+        //console.log("Resultado de la búsqueda:", person)
         if(person === null){
             res.status(404).send('Persona no encontrada')
             return
