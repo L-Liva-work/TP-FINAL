@@ -1,7 +1,6 @@
 const urlParams = new URLSearchParams(window.location.search);
-//const projectId = urlParams.get("id");
-var projectId = 1;
-loadUsers();
+const projectId = urlParams.get("id");
+//loadUsers();
 
 const taskName = document.getElementById('task-name');
 const taskPriority = document.getElementById('task-priority');
@@ -52,7 +51,6 @@ function loadUsers() {
 }
 
 function createTask() {
-
   if (!taskName.value) {
     taskName.classList.add(("is-danger"));
   } else {
