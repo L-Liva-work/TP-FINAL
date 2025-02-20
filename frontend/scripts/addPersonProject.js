@@ -7,7 +7,7 @@ const personId = document.getElementById("personid").value;
 
 
 addPersonProject = function() {
-	fetch('http://localhost:3000/api/v1/projects/' + projectId, {
+	fetch('http://localhost:3000/api/v1/projects/${projectId}/person', {
 		method: 'POST',
 		headers: {
 			'Content-Type' : 'application/json'
