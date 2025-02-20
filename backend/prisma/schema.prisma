@@ -46,7 +46,7 @@ model Tasks {
   startDate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   endDate     DateTime @default(dbgenerated("CURRENT_DATE + interval '1 month'")) @db.Date
 
-  project    Projects @relation(fields: [project_id], references: [id])
+  project    Projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
   project_id Int
 }
 
