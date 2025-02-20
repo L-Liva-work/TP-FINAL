@@ -76,11 +76,12 @@ router.delete('/:id', async (req, res) => {
 })
 
 router.put('/:id', async (req, res) => {
-		const id = parseInt(req.params.id)
+		console.log(req.params.id);
+		console.log(req.body);
     let project = await prisma.projects.findUnique({
         where: {
-            id
-        }
+					id: parseInt(req.params.id)
+				}
     })
     if (project === null) {
         res.status(404).send('Proyecto no encontrado')
@@ -90,7 +91,7 @@ router.put('/:id', async (req, res) => {
     try {
         project = await prisma.projects.update({
         where: {
-            id  
+					id: parseInt(req.params.id)
 				},
 					data: {
 							name: req.body.name,
@@ -98,6 +99,7 @@ router.put('/:id', async (req, res) => {
 							enddate: req.body.endDate,
 					}
     })
+			console.log(project);
     res.send(project)
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar el proyecto' });
