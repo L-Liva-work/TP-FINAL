@@ -70,7 +70,7 @@ router.post('', async (req, res) => {
             doc: req.body.doc,
             puesto: req.body.puesto,
             telefono: BigInt(req.body.telefono),
-            password: hashedPassword
+            password: hashedPassword || null
         }
     })
     const respuesta = JSON.parse( 
