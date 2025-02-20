@@ -116,7 +116,7 @@ router.get('/:id/persons' , async (req, res) => {
 
     const project = await prisma.projects.findUnique({
         where: {
-            id
+            id: parseInt(req.params.id)
         }, 
         include: {
             person: true

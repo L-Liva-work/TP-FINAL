@@ -28,7 +28,7 @@ const body = {
   assigne: taskAssigne.value, 
   description: taskDescription.value,
   endDate: new Date(taskEndDate.value),
-  project_id: projectId
+  project_id: parseInt(projectId)
 }
 
 function loadUsers() {
