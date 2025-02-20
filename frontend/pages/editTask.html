@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JLF editar tareas</title>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+  >
+</head>
+<body>
+  <!-- nav bar -->
+  <nav class="navbar has-shadow is-dark">
+    <!-- logo -->
+    <div class="navbar-brand">
+      <a href="../index.html" class="navbar-item">
+        <img src="../assets/logo.png" alt="site logo" style="max-height: 70px;" class="py-2 pl-2">
+        <img src="../assets/logo2.png" alt="site logo" style="max-height: 70px;" class="py-2">
+      </a>
+
+      <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" id="burger">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-menu" id="nav-links">
+      <div class="navbar-start">
+        <a href="persons.html" class="navbar-item">Usuarios</a>
+        <a href="projects.html" class="navbar-item">Proyectos</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <section class="section has-background-grey-dark">
+    <div class="container">
+      <h1 class="title is-size-2 has-text-centered has-text-white-ter">Modificar Tarea</h1>
+      <form class="box">
+        <div class="field">
+          <label class="label">Nombre de la tarea</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Nombre" id="task-name"/>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Prioridad</label>
+          <div class="control">
+            <div class="select">
+              <select id="task-priority">
+                <option value="NONE">NINGUNA</option>
+                <option value="LOW">BAJA</option>
+                <option value="MEDIUM">MEDIA</option>
+                <option value="HIGH">ALTA</option>
+                <option value="HIGHEST">URGENTE</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Encargado</label>
+          <div class="control">
+            <div class="select">
+              <select id="task-users">
+                <option value="No Asignado">--selecciona un usuario (opcional)--</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Descripción</label>
+          <div class="control">
+            <textarea id="task-description" class="textarea" placeholder="Descripción"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Progreso</label>
+          <div class="control">
+            <textarea id="task-progress" class="input" type="number" placeholder="Progreso"></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Fecha inicial</label>
+          <div class="control">
+            <input id="task-startDate" class="input" type="date">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Fecha final</label>
+          <div class="control">
+            <input id="task-endDate" class="input" type="date">
+          </div>
+        </div>
+
+        <div class="field is-grouped is-grouped-centered">
+          <div class="control">
+            <button id="edit-submit" type="button" id="submit-button" class="button is-link">Enviar</button>
+          </div>
+          <div class="control">
+            <button id="edit-clear" type="button" class="button is-link is-light">Borrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>JLF Gestor de proyectos</strong> by Federico Bragantini, Lautaro Liva, Jael Mamani.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/editTask.js"></script>
+</body>
+</html>
