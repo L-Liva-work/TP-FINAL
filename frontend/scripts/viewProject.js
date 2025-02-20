@@ -65,3 +65,46 @@ addPersonProject = function() {
 	window.location.href = 'addPersonProject?id=' + projectId;
 }
 
+cargarPersonas = function () {
+
+	fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons`)
+	.then(response => response.json())
+	.then(persons => {
+		console.log(persons)
+		
+		let table = document.getElementById('main-table');
+		persons.forEach(data =>{
+			let tr = document.createElement('tr');
+
+			let id = document.createElement('td');
+			id.textContent = data.id;
+
+			let name = document.createElement('td');
+			name.textContent = data.name;
+
+			let borrar = document.createElement('td')
+			let button = document.createElement('button')
+			button.classList= 'button is-danger is-ligt'
+
+			let icono = document.createElement('i')
+			icono.classList= 'fa-solid fa-trash-can'
+			button.onclick = function(){deleterel(data.id)}
+			button.appendChild(icono)
+			
+			borrar.appendChild(button);
+			tr.appendChild(id);
+			tr.appendChild(name);
+
+			table.appendChild(tr)
+		})
+	})
+}
+
+cargarPersonas();
+
+deleterel = function(id) {
+	alert('Desasignando persona' + id);
+	fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons`, {
+		method : 'DELETE'
+	})
+}

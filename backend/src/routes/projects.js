@@ -146,12 +146,14 @@ router.post('/:id/persons', async (req, res) => {
 			res.status(404).send('Proyecto no encontrado')
 			return
 	}
+	console.log(parseInt(req.body.person_id))
 	
 	const person = await prisma.person.findUnique({
 		where:{
 			id : parseInt(req.body.person_id)
 		}
 	})
+
 
 	if (person === null){
 		res.status(404).send('Persona no encontrada')
@@ -180,6 +182,7 @@ router.get('/:id/persons', async (req, res) =>{
 		}
 	})
 	console.log("Resultados:", project)
+
 	if(project === null){
 		res.status(404).send("Proyecto no encontrado")
 		return
