@@ -88,11 +88,9 @@ function submitForm() {
   if (!taskStartDate.value) {
     esValido = false;
     taskStartDate.classList.add(("is-danger"));
-    // alert("El campo fecha inicio debe no estar vacio")
   } else if (!taskEndDate.value) {
     esValido = false;
     taskEndDate.classList.add(("is-danger"));
-    // alert("El campo fecha inicio debe no estar vacio")
   } else if (!taskName.value) {
     esValido = false;
     taskName.classList.add(("is-danger"));

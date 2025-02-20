@@ -13,16 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Projects{
-	id Int @id @default(autoincrement())
-	name String	@unique
-	startdate	DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date 
-	enddate DateTime
-	descripcion String
+model Projects {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  startdate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
+  enddate     DateTime
+  descripcion String
 
-  	task UnlockTasks[]
-	person relPersonProjects[]
-	}
+  person relPersonProjects[]
+  tasks Tasks[]
+}
 
 model Person {
   id       Int    @id @default(autoincrement())
@@ -33,35 +33,28 @@ model Person {
   telefono BigInt
   password String
 
-  Proyectos relPersonProjects[] 
+  Proyectos relPersonProjects[]
 }
 
 model Tasks {
   id          Int      @id @default(autoincrement())
   name        String
-  priority    String
+  priority    String   @default("NONE")
   description String?
+  progress    Int      @default(0)
+  assigne     String   @default("No Asignado")
   startDate   DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date
   endDate     DateTime @default(dbgenerated("CURRENT_DATE + interval '1 month'")) @db.Date
 
-  task UnlockTasks[]
-}
-
-model UnlockTasks {
-  project_id Int
   project    Projects @relation(fields: [project_id], references: [id])
-  task_id    Int
-  task       Tasks    @relation(fields: [task_id], references: [id])
-
-  @@unique([project_id, task_id])
+  project_id Int
 }
 
 model relPersonProjects {
-  id  Int @id @default(autoincrement())
-  
-  project_id Int
-  project Projects @relation(fields: [project_id], references:[id], onDelete: Cascade)
-  person_id Int
-  person Person @relation(fields: [person_id], references:[id], onDelete: Cascade)
+  id Int @id @default(autoincrement())
 
+  project_id Int
+  project    Projects @relation(fields: [project_id], references: [id], onDelete: Cascade)
+  person_id  Int
+  person     Person   @relation(fields: [person_id], references: [id], onDelete: Cascade)
 }
