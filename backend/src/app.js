@@ -1,11 +1,10 @@
 const express = require('express')
 const cors = require('cors')
-const bcrypt = require('bcryptjs')
 
 const projects = require('./routes/projects')
 const persons = require('./routes/persons')
 const tasks = require('./routes/tasks')
-const authentication = require('./routes/authentication')
+//const authentication = require('./routes/authentication')
 //const verifyToken = require('./middlewares/verifyToken')
 
 const app = express()
@@ -22,7 +21,6 @@ app.use('/api/v1/projects', projects)
 app.use('/api/v1/persons', persons)
 app.use('/api/v1/tasks', tasks)
 
-app.use('/api/v1/auth', authentication )
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

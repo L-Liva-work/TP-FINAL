@@ -1,4 +1,3 @@
-const bcrypt = require('bcryptjs')
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
 const router = express.Router()
@@ -59,8 +58,6 @@ router.post('', async (req, res) => {
     if (personFind){
         return res.status(400).json('Ya existe una persona registrada con ese correo')
     }
-    const salt = await bcrypt.genSalt(5)
-    const hashedPassword = await  bcrypt.hash(password, salt)
 
 
     const person = await prisma.person.create({
@@ -70,7 +67,7 @@ router.post('', async (req, res) => {
             doc: req.body.doc,
             puesto: req.body.puesto,
             telefono: BigInt(req.body.telefono),
-            password: hashedPassword || null
+            password: null
         }
     })
     const respuesta = JSON.parse( 
