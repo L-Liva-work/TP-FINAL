@@ -1,7 +1,6 @@
+cargarDatos = function() {
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get('id');
-
-cargarDatos = function() {
 	console.log(projectId);
 
 	if (isNaN(projectId)) {
@@ -21,11 +20,23 @@ cargarDatos = function() {
 		document.getElementById('actualizar-endDate').value = project.enddate.split('T')[0]
 	})}
 
-function updateProject() {
+updateProject = function() {
+	event.preventDefault(); 
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const projectId = urlParams.get('id');
+	console.log(projectId)
+	let endDate = document.getElementById('actualizar-endDate').value;
+	if (!endDate) {
+    endDate = undefined;
+  } else {
+    endDate = new Date(endDate);
+  }
+
 	const new_body = {
 		name: document.getElementById('actualizar-name').value,
 		description: document.getElementById('actualizar-description').value,
-		endDate: document.getElementById('actualizar-endDate').value,
+		endDate: endDate,
 	}
 	console.log(new_body)
 
@@ -36,11 +47,18 @@ function updateProject() {
 		},
 		body: JSON.stringify(new_body)
 	})
-	.then(response =>response.json())
-	.then(data => {
+	.then(response => {
+		if(!response.ok) {
+			return response.json()
+				.then(error => { 
+			throw new Error(error.message) }) 
+		} else {
+		return response.json()}
+		})
+		.then(data => {
 		console.log('Proyecto actualizado con exito:', data);
 		alert('Proyecto actualizado con exito');
-		//window.location.href = 'projects.html'
+		window.location.href = 'projects'
 	})
 	.catch(error =>{
 		console.error('Error al actualizar el proyecto:', error)
