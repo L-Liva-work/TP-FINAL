@@ -56,16 +56,16 @@ fetch('http://localhost:3000/api/v1/persons/' + personId ,{
         let table = document.getElementById('data-project')
         data.forEach(data => {
             let tr = document.createElement('tr')
-        
+    
             let nombre = document.createElement('td')
-            nombre.textContent = data.name
+            nombre.textContent = data.project.name
   
             let fecha = document.createElement('td')
-            fecha.textContent = data.date
-  
+            fecha.textContent = new Date(data.project.startdate)
+    
             let descripcion = document.createElement('td')
-            descripcion.textContent = data.descripcion
-  
+            descripcion.textContent = data.project.descripcion
+
             tr.appendChild(nombre)
             tr.appendChild(fecha)
             tr.appendChild(descripcion)
