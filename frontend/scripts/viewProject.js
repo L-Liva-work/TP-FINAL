@@ -47,3 +47,7 @@ fetch('http://localhost:3000/api/v1/projects/' + projectId)
 redirect = function () {
 	window.location.href= 'editProject?id=' + projectId;
 }
+
+addPersonProject = function() {
+	window.location.href = 'addPersonProject?id=' + projectId;
+}
