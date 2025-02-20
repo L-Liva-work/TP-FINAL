@@ -107,6 +107,31 @@ router.put('/:id', async (req, res) => {
     
 })
 
+router.get('/:id/persons' , async (req, res) => {    
+    const id = parseInt(req.params.id)
+    if (isNaN(id)){
+        res.status(400).send('ID invalido')
+        return
+    }
+
+    const project = await prisma.projects.findUnique({
+        where: {
+            id
+        }, 
+        include: {
+            person: true
+        },
+    })
+
+    if (!project){
+        res.status(404).send(`Proyecto con ID ${id} no encontrada`)
+        return
+    }
+
+    res.json(project)
+    
+})    
+
 
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
