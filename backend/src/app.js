@@ -20,13 +20,8 @@ app.get('/', (req, res) => {
   res.send('Organizador de tareas')
 })
 
-<<<<<<< HEAD
 app.use('/api/v1/projects', projects)
-app.use('/api/v1/persons', persons)
-=======
 app.use('/api/v1/persons',verifyToken, persons)
-app.use('/api/v1/projects',project)
->>>>>>> dev
 app.use('/api/v1/tasks', tasks)
 
 app.use('/api/v1/auth', authentication )
