@@ -13,25 +13,27 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Proyecto {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  date        DateTime
-  descripcion String
-  creador     Person   @relation(fields: [creadorId], references: [id])
-  creadorId   Int
+model Projects{
+	id Int @id @default(autoincrement())
+	name String	@unique
+	startdate	DateTime @default(dbgenerated("CURRENT_DATE")) @db.Date 
+	enddate DateTime
+	descripcion String
 
-  task UnlockTasks[]
-}
+  	task UnlockTasks[]
+	person relPersonProjects[]
+	}
 
 model Person {
-  id     Int    @id @default(autoincrement())
-  email  String @unique
-  nombre String
-  doc    Int    @unique
-  puesto String
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  nombre   String
+  doc      Int    @unique
+  puesto   String
+  telefono BigInt
+  password String
 
-  Proyectos Proyecto[]
+  Proyectos relPersonProjects[] 
 }
 
 model Tasks {
@@ -46,10 +48,20 @@ model Tasks {
 }
 
 model UnlockTasks {
-  proyect_id Int
-  proyect    Proyecto @relation(fields: [proyect_id], references: [id])
+  project_id Int
+  project    Projects @relation(fields: [project_id], references: [id])
   task_id    Int
   task       Tasks    @relation(fields: [task_id], references: [id])
 
-  @@unique([proyect_id, task_id])
+  @@unique([project_id, task_id])
+}
+
+model relPersonProjects {
+  id  Int @id @default(autoincrement())
+  
+  project_id Int
+  project Projects @relation(fields: [project_id], references:[id], onDelete: Cascade)
+  person_id Int
+  person Person @relation(fields: [person_id], references:[id], onDelete: Cascade)
+
 }

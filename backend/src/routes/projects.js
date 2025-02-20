@@ -7,8 +7,8 @@ const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
     try {
-        const proyectos = await prisma.proyecto.findMany()
-    res.json(proyectos)
+        const projects = await prisma.projects.findMany()
+    res.json(projects)
     } catch (error) {
         res.status(500).json({error: 'Error al obtener los proyectos'})   
     }
@@ -21,85 +21,86 @@ router.get('/:id' , async (req, res) => {
         return
     }
 
-    const proyectos = await prisma.proyecto.findUnique({
+    const project = await prisma.projects.findUnique({
         where: {
             id
         }
     })
 
-    if (!proyectos){
+    if (!project){
         res.status(404).send(`Proyecto con ID ${id} no encontrada`)
         return
     }
 
-    res.json(proyectos)
+    res.json(project)
     
 })
 
 
 router.post('', async (req, res) => {
-    const { nombre , creador } = req.body;
+    const  nombre = req.body;
 
-    if (!nombre || !creador ) {
-        return res.status(400).json({ error: 'Los campos nombre y creador son requeridos' });
+    if (!nombre)  {
+        return res.status(400).json({ error: 'El campo nombre es requerido' });
     }
 
-    const proyecto = await prisma.proyecto.create({
+    const project = await prisma.projects.create({
         data: {
-            descripcion: req.body.descripcion,
-            name: req.body.nombre,
-          	date: req.body.date,
-            creador: req.body.creador
+            name: req.body.name,
+            descripcion: req.body.description,
+          	enddate: req.body.endDate,
         }
     })
-    res.status(201).send(proyecto)
+    res.status(201).send(project)
 })
 
 
 router.delete('/:id', async (req, res) => {
-    const proyecto = await prisma.proyecto.findUnique({
+    const project = await prisma.projects.findUnique({
         where: {
             id: parseInt(req.params.id)
-        }
+		}
     })
 
-    if (proyecto === null){
+    if (project  === null){
         res.status(404).send('Proyecto no encontrado')
         return
     }
 
-    await prisma.proyecto.delete({
-        where: {
-            id:parseInt(req.params.id)
-        }
-    })
-    res.send(proyecto)
-})
-
-router.put('/:id', async (req, res) => {
-    let proyecto = await prisma.proyecto.findUnique({
+    await prisma.projects.delete({
         where: {
             id: parseInt(req.params.id)
         }
     })
-    if (proyecto === null) {
+    res.send(project)
+})
+
+router.put('/:id', async (req, res) => {
+		console.log(req.params.id);
+		console.log(req.body);
+    let project = await prisma.projects.findUnique({
+        where: {
+					id: parseInt(req.params.id)
+				}
+    })
+    if (project === null) {
         res.status(404).send('Proyecto no encontrado')
         return
     }
 
     try {
-        proyecto = await prisma.proyecto.update({
+        project = await prisma.projects.update({
         where: {
-            id: proyecto.id,
-        },
+					id: parseInt(req.params.id)
+				},
 					data: {
-							descripcion: req.body.descripcion,
-							name: req.body.nombre,
-							date: req.body.date,
-							creador: req.body.creador
+							name: req.body.name,
+							descripcion: req.body.description,
+							enddate: req.body.endDate,
 					}
     })
-    res.send(proyecto)
+			console.log(project);
+    res.send(project)
     } catch (error) {
         res.status(500).json({ error: 'Error al actualizar el proyecto' });
     }

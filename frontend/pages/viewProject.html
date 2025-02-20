@@ -40,14 +40,43 @@
 	</nav>
 
   <!-- main content -->
- <section class="section has-background-grey-dark">
-	 <div class="container">
-		<h1 class="title is-size-2 has-text-centered has-text-white-ter">PROYECTOS</h1>
-		<main id="main-content" class="container">
-		</main>
-	</div>
- </section>
-		
+  <section>
+	  <div class= "container">
+		<h1 id="project-name-title" class="title is-size-2 has-text-centered has-text-white-ter"></h1>
+		<table class="table is-bordered is-hoverable is-fullwidth">
+			<thead>
+				<tr class="has-background-dark">
+					<th class="has-text-white-ter">ID</th>
+					<th class="has-text-white-ter">Fecha Inicio</th>
+					<th class="has-text-white-ter">Fecha Final</th>
+				</tr>
+			</thead>
+			<tbody id="project-data">
+			</tbody>
+			</table>
+	  </div>
+  </section>
+  
+  <section class="container mgt-large">
+	  <p class="is-size-2 is-underlined"> Descripcion del proyecto </p>
+	  <div class="card is-shadowless">
+		  <div class"card-content">
+			  <div id="project-desc" class="content is-size-4">
+			  </div>
+		  </div>
+	  </div>
+  </section>
+
+  <section>
+	  <div class= "container mt-6">
+			  <button id="buttonEdit" onclick=redirect() class="button is-medium">Editar</button>
+			  <button id="buttonDelete" onclick=delProject() class="button is-medium">Borrar</button>
+	  </div>
+	  </section>
+
+		<section class= "container mt-6">
+			<button class="button is-link">Agregar personas</button>
+		</section>
 
 
   <!-- footer -->
@@ -60,7 +89,8 @@
   </footer>
 
   <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/projects.js"></script>
+  <script src="../scripts/viewProject.js"></script>
 	</body>
 	</html>
  
+

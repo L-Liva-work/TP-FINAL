@@ -1,15 +1,18 @@
+const bcrypt = require('bcryptjs')
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
-
 const router = express.Router()
-
 const prisma = new PrismaClient()
 
 router.get('/', async (req, res) => {
     try {
         const persons = await prisma.person.findMany()
-    res.json(persons)
+        const respuesta = JSON.parse( 
+            JSON.stringify(persons, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+        )
+        res.json(respuesta)
     } catch (error) {
+        console.error(" Error en el backend:", error)
         res.status(500).json({error: 'Error al obtener los usuarios'})   
     }
 })
@@ -32,27 +35,48 @@ router.get('/:id' , async (req, res) => {
         return
     }
 
-    res.json(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+
+    res.json(respuesta)
     
 })
 
 
 router.post('', async (req, res) => {
-    const { nombre, email } = req.body;
+    const { nombre, email , password} = req.body;
 
-    if (!nombre || !email) {
-        return res.status(400).json({ error: 'Los campos nombre y email son requeridos' });
+    if (!nombre || !email || !password) {
+        return res.status(400).json({ error: 'Los campos nombre, email y contraseña son requeridos' });
     }
+
+    const personFind = await prisma.person.findUnique({
+        where: {
+            email
+        }
+    })
+    if (personFind){
+        return res.status(400).json('Ya existe una persona registrada con ese correo')
+    }
+    const salt = await bcrypt.genSalt(5)
+    const hashedPassword = await  bcrypt.hash(password, salt)
+
 
     const person = await prisma.person.create({
         data: {
             email: req.body.email,
             nombre: req.body.nombre,
             doc: req.body.doc,
-            puesto: req.body.puesto
+            puesto: req.body.puesto,
+            telefono: BigInt(req.body.telefono),
+            password: hashedPassword
         }
     })
-    res.status(201).send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
 })
 
 
@@ -73,10 +97,15 @@ router.delete('/:id', async (req, res) => {
             id:parseInt(req.params.id)
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).send(respuesta)
+
 })
 
 router.put('/:id', async (req, res) => {
+    console.log('Datos recibidos en req.body:', req.body)
     let person = await prisma.person.findUnique({
         where: {
             id: parseInt(req.params.id)
@@ -95,16 +124,47 @@ router.put('/:id', async (req, res) => {
         data: {
             email: req.body.email,
             nombre: req.body.nombre,
-            doc: req.body.doc,
-            puesto: req.body.puesto
+            doc: parseInt(req.body.doc),
+            puesto: req.body.puesto,
+            telefono: BigInt(req.body.telefono)
 
         }
     })
-    res.send(person)
+    const respuesta = JSON.parse( 
+        JSON.stringify(person, (key, value) => typeof value === 'bigint' ? Number(value) : value)
+    )
+    res.status(201).json(respuesta)
     } catch (error) {
-        res.status(500).json({ error: 'Error al actualizar el usuario' });
+        console.error('Error al actualizar la persona:', error)
+        res.status(500).json({ error: 'Error al actualizar el usuario' })
     }
     
+})
+
+
+//relacion con proyecto
+router.get(`/:id/projects`, async (req, res) => {
+    try {
+        const personId = parseInt(req.params.id)
+        console.log("Buscando persona con ID:", personId);
+        const person = await prisma.person.findUnique({
+            where: {
+                id: parseInt(req.params.id)
+            },
+            include:{
+                Proyectos: true
+            }
+        })
+        console.log("Resultado de la búsqueda:", person)
+        if(person === null){
+            res.status(404).send('Persona no encontrada')
+            return
+        }
+       
+        res.json(person.Proyectos)
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener el/los proyectos' })
+    }
 })
 
 
