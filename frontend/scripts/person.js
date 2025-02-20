@@ -1,17 +1,12 @@
 const urlParam = new URLSearchParams(window.location.search)
 const personId = urlParam.get('id')
 
-const token = localStorage.getItem("token")
-if (!token) {
-    window.location.href = "login.html"   
-}
 
 document.getElementById('title').textContent += personId
 
 fetch('http://localhost:3000/api/v1/persons/' + personId ,{
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+ token
     }
 })
 .then((response) => response.json())

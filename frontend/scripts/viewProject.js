@@ -68,19 +68,21 @@ addPersonProject = function() {
 cargarPersonas = function () {
 
 	fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons`)
-	.then(response => response.json())
-	.then(persons => {
-		console.log(persons)
-		
-		let table = document.getElementById('main-table');
+	.then((response) => response.json())
+	.then((person) => {
+		console.log(person)
+		console.log(typeof(person))
+		const persons = person.person
+		let table = document.getElementById("person-table");
+	
+
 		persons.forEach(data =>{
+			console.log(data)
 			let tr = document.createElement('tr');
 
 			let id = document.createElement('td');
-			id.textContent = data.id;
+			id.textContent = data.person_id;
 
-			let name = document.createElement('td');
-			name.textContent = data.name;
 
 			let borrar = document.createElement('td')
 			let button = document.createElement('button')
@@ -91,9 +93,9 @@ cargarPersonas = function () {
 			button.onclick = function(){deleterel(data.id)}
 			button.appendChild(icono)
 			
-			borrar.appendChild(button);
 			tr.appendChild(id);
-			tr.appendChild(name);
+			borrar.appendChild(button);
+			tr.appendChild(borrar);
 
 			table.appendChild(tr)
 		})
@@ -103,8 +105,15 @@ cargarPersonas = function () {
 cargarPersonas();
 
 deleterel = function(id) {
-	alert('Desasignando persona' + id);
+	alert('Desasignando persona ' + id);
 	fetch(`http://localhost:3000/api/v1/projects/${projectId}/persons`, {
-		method : 'DELETE'
+		method : 'DELETE',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body : JSON.stringify({
+			personId : id 
+		})	
 	})
+
 }
