@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const { PrismaClient } = require('@prisma/client')
 const express = require('express')
 const router = express.Router()
@@ -44,11 +45,23 @@ router.get('/:id' , async (req, res) => {
 
 
 router.post('', async (req, res) => {
-    const { nombre, email } = req.body;
+    const { nombre, email , password} = req.body;
 
-    if (!nombre || !email) {
-        return res.status(400).json({ error: 'Los campos nombre y email son requeridos' });
+    if (!nombre || !email || !password) {
+        return res.status(400).json({ error: 'Los campos nombre, email y contraseña son requeridos' });
     }
+
+    const personFind = await prisma.person.findUnique({
+        where: {
+            email
+        }
+    })
+    if (personFind){
+        return res.status(400).json('Ya existe una persona registrada con ese correo')
+    }
+    const salt = await bcrypt.genSalt(5)
+    const hashedPassword = await  bcrypt.hash(password, salt)
+
 
     const person = await prisma.person.create({
         data: {
@@ -56,7 +69,8 @@ router.post('', async (req, res) => {
             nombre: req.body.nombre,
             doc: req.body.doc,
             puesto: req.body.puesto,
-            telefono: BigInt(req.body.telefono)
+            telefono: BigInt(req.body.telefono),
+            password: hashedPassword
         }
     })
     const respuesta = JSON.parse( 
