@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JLF Tarea</title>
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+  >
+</head>
+<body>
+  <!-- nav bar -->
+  <nav class="navbar has-shadow is-dark">
+    <!-- logo -->
+    <div class="navbar-brand">
+      <a href="../index.html" class="navbar-item">
+        <img src="../assets/logo.png" alt="site logo" style="max-height: 70px;" class="py-2 pl-2">
+        <img src="../assets/logo2.png" alt="site logo" style="max-height: 70px;" class="py-2">
+      </a>
+
+      <a class="navbar-burger" role="button" aria-label="menu" aria-expanded="false" id="burger">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" id="nav-links">
+      <div class="navbar-start">
+        <a href="persons.html" class="navbar-item px-2">Usuarios</a>
+        <a href="projects.html" class="navbar-item px-2">Proyectos</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <section class="section has-background-grey-dark">
+    <div class="container">
+      <h1 id="task-title" class="title is-size-2 has-text-centered has-text-white-ter"></h1>
+      <div class="columns is-vcentered">
+        <div class="column is-3 is-narrow">
+          <article class="message">
+            <div class="message-header">
+              <p>Nombre</p>
+            </div>
+            <div id="task-name" class="message-body"></div>
+          </article>
+        </div>
+        <div class="column is-5">
+          <article class="message">
+            <div class="message-header">
+              <p>Descripcion</p>
+            </div>
+            <div id="task-description" class="message-body"></div>
+          </article>
+        </div>
+        <div class="column is-2">
+          <article class="message">
+            <div class="message-header">
+              <p>Fecha inicial</p>
+            </div>
+            <div id="task-startDate" class="message-body"></div>
+          </article>
+        </div>
+        <div class="column is-2">
+          <article class="message">
+            <div class="message-header">
+              <p>Fecha final</p>
+            </div>
+            <div id="task-endDate" class="message-body"></div>
+          </article>
+        </div>
+      </div>
+      <div class="columns is-vcentered">
+        <div class="column is-4">
+          <article class="message">
+            <div class="message-header">
+              <p>Prioridad</p>
+            </div>
+            <div id="task-priority" class="message-body"></div>
+          </article>
+        </div>
+        <div class="column is-4">
+          <article class="message">
+            <div class="message-header">
+              <p id="task-progress-title">Progreso</p>
+            </div>
+            <div id="task-progress" class="message-body"></div>
+          </article>
+        </div>
+        <div class="column is-4">
+          <article class="message">
+            <div class="message-header">
+              <p id="task-progress-title">Encargado</p>
+            </div>
+            <div id="task-users" class="message-body"></div>
+          </article>
+        </div>
+      </div>
+      <div class="field is-grouped is-grouped-center">
+        <a id="edit-button"><span>Editar</span></a>
+        <button id="delete-button"><span>Borrar</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- delete modal -->
+  <div id="delete-modal" class="modal">
+    <div id="delete-modal-background" class="modal-background"></div>
+    <div class="modal-content has-background-grey-lighter p-5">
+      <h3 class="title is-size-3 has-text-centered has-text-black">¿Estás seguro?</h3>
+      <div class="field is-grouped is-grouped-center">
+        <button id="delete-modal-button" class="button is-danger is-fullwidth">Borrar</button>
+        <button id="delete-modal-cancel" class="button is-dark is-fullwidth">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        <strong>JLF Gestor de proyectos</strong> by Federico Bragantini, Lautaro Liva, Jael Mamani.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../scripts/navbar.js"></script>
+  <script src="../scripts/task.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</body>
+</html>
