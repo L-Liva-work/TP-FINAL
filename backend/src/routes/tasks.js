@@ -25,10 +25,12 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
+  
   if (isNaN(req.params.id)) {
     res.status(400).send("Field id is not a number");
     return;
   }
+
   const task = await prisma.tasks.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -49,9 +51,7 @@ router.post('/', async (req, res) => {
     return;
   }
 
-  if (req.body.priority != "LOW" && req.body.priority != "MEDIUM" 
-    && req.body.priority != "HIGH" && req.body.priority != "HIGHEST")
-  {
+  if (req.body.priority != "LOW" && req.body.priority != "MEDIUM" && req.body.priority != "HIGH" && req.body.priority != "HIGHEST") {
     req.body.priority = "NONE";
   }
 
@@ -59,9 +59,12 @@ router.post('/', async (req, res) => {
     data: {
       name: req.body.name,
       priority: req.body.priority,
+      assigne: req.body.assigne,
       description: req.body.description,
+      progress: req.body.progress,
       startDate: req.body.startDate,
-      endDate: req.body.endDate
+      endDate: req.body.endDate,
+      project_id: parseInt(req.body.project_id)
     }
   })
 
@@ -69,10 +72,12 @@ router.post('/', async (req, res) => {
 })
 
 router.delete('/:id', async (req, res) => {
+  
   if (isNaN(req.params.id)) {
     res.status(400).send("Field id is not a number");
     return;
   }
+
   const task = await prisma.tasks.findUnique({
     where: {
       id: parseInt(req.params.id)
@@ -82,7 +87,7 @@ router.delete('/:id', async (req, res) => {
   if (task === null) {
     res.status(404)
     return
-  }
+  } 
   await prisma.tasks.delete({
     where: {
       id: parseInt(req.params.id)
@@ -97,16 +102,12 @@ router.put('/:id', async (req, res) => {
     res.status(400).send("Field id is not a number");
     return;
   }
+  
   let task = await prisma.tasks.findUnique({
     where: {
       id: parseInt(req.params.id)
     }
   })
-
-  if (task === null) {
-    res.status(404)
-    return
-  }
 
   if (task === null) {
     res.status(404)
@@ -152,5 +153,6 @@ router.put('/:id', async (req, res) => {
   
   res.status(200).json(task);
 })
+
 
 module.exports = router
