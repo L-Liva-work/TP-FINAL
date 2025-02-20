@@ -72,6 +72,12 @@ router.delete('/:id', async (req, res) => {
             id: parseInt(req.params.id)
         }
     })
+		await prisma.relPersonProjects.deleteMany({
+				where: {
+					id: parseInt(req.params.id)
+				}
+		})
+		
     res.send(project)
 })
 
@@ -173,13 +179,14 @@ router.post('/:id/persons', async (req, res) => {
 router.get('/:id/persons', async (req, res) =>{
 	const projectId = parseInt(req.params.id)
 	console.log("Buscando info de proyecto con ID:", projectId)
-	const project = await prisma.projects.findUnique({
-		where:{
-			id : parseInt(req.params.id)
+	const project = await prisma.projects.findMany({
+		include: {
+			person: {
+				where:{
+					project_id: projectId
+				}
+			}
 		},
-		include:{ 
-			person: true
-		}
 	})
 	console.log("Resultados:", project)
 
@@ -188,8 +195,19 @@ router.get('/:id/persons', async (req, res) =>{
 		return
 	}
 
-	res.json(project.person)
+	res.json(project)
 })
 
+router.delete('/:id/persons', async (req, res) =>{
+	const projectId = parseInt(req.params.id)
+
+	await prisma.relPersonProjects.delete({
+		where: {
+			id : parseInt(req.body.personId),
+			project_id : projectId
+		
+		}
+	})
+})
 /*es para exportar el router de este archivo para que este disponible en app.js*/
 module.exports = router;
