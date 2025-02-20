@@ -48,6 +48,7 @@ redirect = function () {
 	window.location.href= 'editProject?id=' + projectId;
 }
 
+
 const viewTasksButton = document.getElementById("viewTasks");
 
 viewTasksButton.addEventListener("click", () => {
@@ -59,3 +60,8 @@ const createTasksButton = document.getElementById("createTasks");
 createTasksButton.addEventListener("click", () => {
 	window.location.href = `createTasks?id=${projectId}`;
 });
+
+addPersonProject = function() {
+	window.location.href = 'addPersonProject?id=' + projectId;
+}
+
