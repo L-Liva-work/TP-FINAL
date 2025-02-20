@@ -18,29 +18,22 @@ model Proyecto {
   name        String   @unique
   date        DateTime
   descripcion String
-  creador     Person   @relation(fields: [creadorId], references: [id])
+  creador     Person   @relation(fields: [creadorId], references: [id], onDelete: Cascade)
   creadorId   Int
 
+  UnlockTasks UnlockTasks[]
+}
 
-model Proyecto{
-	id Int @id @default(autoincrement())
-	name String	@unique
-	date DateTime
-	descripcion String
-	creador Person @relation(fields: [creadorId], references: [id])
-	creadorId Int
-	}
+model Person {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  nombre   String
+  doc      Int    @unique
+  puesto   String
+  telefono BigInt
+  password String
 
-model Person{
-	id Int @id @default(autoincrement())
-	email String @unique
-	nombre String 
-	doc Int @unique
-	puesto String
-	telefono BigInt
-
-	Proyectos Proyecto[]
-  
+  Proyectos Proyecto[]
 }
 
 model Tasks {

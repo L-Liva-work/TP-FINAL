@@ -66,6 +66,13 @@ function create_person() {
     const puesto = document.getElementById('puesto').value
     const telefono = document.getElementById('telefono').value
 
+    const mensaje = document.getElementById('mensaje-error') 
+
+    if (!validar_formulario()) {
+      alert('Complete de forma correcta y completa el formulario')
+      return
+    }
+
       let body =  {
           email: email,
           nombre: nombre,
@@ -84,24 +91,20 @@ function create_person() {
         })
         .then(response =>{
           console.log(response.status)
+          console.log('lo que estoy recibiendo es: '+response.json)
           if (response.status === 201) {
-              alert('Persona creada con exito') 
-              //window.location.href = "persons.html"
+              alert('Registro exitoso')  
               window.location.href = "login.html"
 
               limpiar_formulario()
                 
           } else {
-            alert('Error al crear un persona')
+            //esto es por si ya existe un usuario con ese email
+            mensaje.style.display = 'block'
+            setTimeout(function(){
+              window.location.reload()
+           }, 5000)
           }
         })
 
-}
-
-function limpiar_formulario() {
-      document.getElementById('nombre').value  = '' 
-      document.getElementById('email').value = '' 
-      document.getElementById('documento').value = ''
-      document.getElementById('puesto').value= '' 
-      document.getElementById('telefono').value = ''
 }
